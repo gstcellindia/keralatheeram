@@ -410,6 +410,7 @@ footer p{font-size:0.85rem;}
   <ul class="nav-links">
     <li><a onclick="showPage('home')">Home</a></li>
     <li><a onclick="showPage('home');setTimeout(()=>document.getElementById('listings').scrollIntoView({behavior:'smooth'}),100)">Listings</a></li>
+    <li><a id="my-listings-link" style="display:none" onclick="showPage('mylistings')">My Listings</a></li>
     <li><a onclick="showPage('add')">Post Property</a></li>
     <li><a onclick="showPage('admin')" id="admin-link" style="display:none">⚙️ Admin</a></li>
   </ul>
@@ -426,6 +427,7 @@ footer p{font-size:0.85rem;}
 <div class="mobile-menu" id="mobile-menu">
   <a onclick="showPage('home');closeMenu()">🏠 Home</a>
   <a onclick="showPage('home');setTimeout(()=>document.getElementById('listings').scrollIntoView({behavior:'smooth'}),100);closeMenu()">🏘️ Listings</a>
+  <a id="my-listings-mobile" style="display:none" onclick="showPage('mylistings');closeMenu()">📋 My Listings</a>
   <a onclick="showPage('add');closeMenu()">➕ Post Property</a>
   <a id="admin-mobile-link" style="display:none" onclick="showPage('admin');closeMenu()">⚙️ Admin Dashboard</a>
   <a id="mobile-signin" onclick="showAuth();closeMenu()">🔐 Sign In</a>
@@ -510,6 +512,23 @@ footer p{font-size:0.85rem;}
       <!-- filled by JS based on auth state -->
     </div>
   </section>
+</div>
+
+<!-- ═══ MY LISTINGS PAGE ═══ -->
+<div class="page" id="page-mylistings" style="padding-top:80px;">
+  <div class="section">
+    <div class="sec-header">
+      <div>
+        <div class="sec-label">Your Account</div>
+        <div class="sec-title">My Listings</div>
+      </div>
+      <button class="nav-btn btn-gold" style="padding:10px 24px" onclick="showPage('add')">➕ Post New Property</button>
+    </div>
+    <div id="my-listings-stats" style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:32px;"></div>
+    <div class="pgrid" id="my-pgrid">
+      <div class="loading"><div class="spinner"></div><p>Loading your listings…</p></div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ ADMIN PAGE ═══ -->
@@ -727,13 +746,15 @@ window.closeMenu = () => {
 // ── AUTH STATE ────────────────────────────────────────────────────────────────
 onAuthStateChanged(auth, user => {
   currentUser = user;
-  const loginBtn   = document.getElementById('login-btn');
-  const logoutBtn  = document.getElementById('logout-btn');
-  const navUser    = document.getElementById('nav-user');
-  const adminLink  = document.getElementById('admin-link');
-  const adminMLink = document.getElementById('admin-mobile-link');
-  const mSignin    = document.getElementById('mobile-signin');
-  const mSignout   = document.getElementById('mobile-signout');
+  const loginBtn    = document.getElementById('login-btn');
+  const logoutBtn   = document.getElementById('logout-btn');
+  const navUser     = document.getElementById('nav-user');
+  const adminLink   = document.getElementById('admin-link');
+  const adminMLink  = document.getElementById('admin-mobile-link');
+  const mSignin     = document.getElementById('mobile-signin');
+  const mSignout    = document.getElementById('mobile-signout');
+  const myLink      = document.getElementById('my-listings-link');
+  const myMLink     = document.getElementById('my-listings-mobile');
   if(user) {
     loginBtn.style.display   = 'none';
     logoutBtn.style.display  = 'block';
@@ -741,6 +762,8 @@ onAuthStateChanged(auth, user => {
     navUser.textContent      = user.displayName || user.email.split('@')[0];
     mSignin.style.display    = 'none';
     mSignout.style.display   = 'block';
+    myLink.style.display     = 'block';
+    myMLink.style.display    = 'block';
     const isAdmin = user.email === ADMIN_EMAIL;
     adminLink.style.display  = isAdmin ? 'block' : 'none';
     adminMLink.style.display = isAdmin ? 'block' : 'none';
@@ -750,11 +773,14 @@ onAuthStateChanged(auth, user => {
     navUser.style.display    = 'none';
     adminLink.style.display  = 'none';
     adminMLink.style.display = 'none';
+    myLink.style.display     = 'none';
+    myMLink.style.display    = 'none';
     mSignin.style.display    = 'block';
     mSignout.style.display   = 'none';
   }
   renderAddForm();
   if(document.getElementById('page-admin').classList.contains('active')) renderAdmin();
+  if(document.getElementById('page-mylistings').classList.contains('active')) renderMyListings();
 });
 
 // ── AUTH FUNCTIONS ────────────────────────────────────────────────────────────
@@ -808,6 +834,7 @@ window.showPage = page => {
   window.scrollTo(0,0);
   if(page==='add') renderAddForm();
   if(page==='admin') renderAdmin();
+  if(page==='mylistings') renderMyListings();
 };
 
 // ── LOAD PROPERTIES ───────────────────────────────────────────────────────────
@@ -908,7 +935,7 @@ window.renderAddForm = () => {
   if(!currentUser) {
     card.innerHTML = `<div class="login-required">
       <h3>🔐 Sign In Required</h3>
-      <p>You need to sign in to list a property on Estato.</p>
+      <p>You need to sign in to post a property on Kerala Theeram.</p>
       <button class="nav-btn btn-dark" style="padding:12px 28px" onclick="showAuth()">Sign In / Register</button>
     </div>`;
     return;
@@ -936,13 +963,19 @@ window.renderAddForm = () => {
         <label>Property Images</label>
         <div class="img-upload-area" id="upload-area" onclick="document.getElementById('img-file-input').click()">
           <div style="font-size:2rem">📸</div>
-          <p>Click to upload images (JPG, PNG — max 5MB each)</p>
-          <p style="font-size:0.8rem;margin-top:4px;color:#aaa">Multiple images supported</p>
+          <p style="font-weight:600;margin-bottom:4px">Click to upload photos</p>
+          <p style="font-size:0.8rem;color:rgba(255,255,255,0.6)">JPG, PNG — max 5MB each · Multiple images supported</p>
         </div>
         <input type="file" id="img-file-input" accept="image/*" multiple style="display:none" onchange="handleImageUpload(event)">
         <div class="upload-progress" id="upload-progress"><div class="upload-bar" id="upload-bar" style="width:0%"></div></div>
         <div class="img-preview" id="img-preview"></div>
         <p id="upload-status" style="font-size:0.82rem;color:var(--warm-gray);margin-top:6px;"></p>
+        <div style="margin-top:12px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:0.78rem;color:var(--warm-gray)">Or paste image URL:</span>
+          <input type="text" id="img-url-input" placeholder="https://example.com/photo.jpg"
+            style="flex:1;border:1.5px solid rgba(15,35,24,0.15);border-radius:8px;padding:8px 12px;font-size:0.85rem;background:var(--cream);color:var(--dark);outline:none;">
+          <button type="button" onclick="addImageUrl()" style="background:var(--dark);color:var(--cream);border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.85rem;white-space:nowrap">Add URL</button>
+        </div>
       </div>
     </div>
     <button class="sub-btn" id="submit-btn" onclick="submitListing()">Submit Listing</button>
@@ -951,7 +984,7 @@ window.renderAddForm = () => {
   uploadedImageURLs = [];
 };
 
-// ── IMAGE UPLOAD ──────────────────────────────────────────────────────────────
+// ── IMAGE UPLOAD (Fixed) ───────────────────────────────────────────────────────
 window.handleImageUpload = async (event) => {
   const files = Array.from(event.target.files);
   if(!files.length) return;
@@ -960,36 +993,174 @@ window.handleImageUpload = async (event) => {
   const statusEl     = document.getElementById('upload-status');
   const previewEl    = document.getElementById('img-preview');
   progressWrap.style.display = 'block';
+  progressBar.style.width = '10%';
   statusEl.textContent = `Uploading ${files.length} image(s)…`;
-  let done = 0;
+
   for(const file of files) {
-    if(file.size > 5*1024*1024) { statusEl.textContent='⚠️ '+file.name+' exceeds 5MB, skipped.'; continue; }
-    const storageRef = ref(storage, `properties/${Date.now()}_${file.name}`);
-    const task = uploadBytesResumable(storageRef, file);
-    await new Promise((res,rej) => {
-      task.on('state_changed',
-        snap => { const pct=Math.round((done/files.length)*100+((snap.bytesTransferred/snap.totalBytes)/files.length)*100); progressBar.style.width=pct+'%'; },
-        rej,
-        async () => {
-          const url = await getDownloadURL(task.snapshot.ref);
-          uploadedImageURLs.push(url);
-          // preview
-          const el = document.createElement('div'); el.className='img-prev-item';
-          el.innerHTML=`<img src="${url}"><button onclick="removeUploadedImg('${url}',this.parentElement)">✕</button>`;
+    if(file.size > 5*1024*1024) {
+      statusEl.textContent = '⚠️ ' + file.name + ' exceeds 5MB, skipped.';
+      continue;
+    }
+    try {
+      // Try Firebase Storage first
+      const filename = `properties/${currentUser.uid}_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g,'_')}`;
+      const storageRef = ref(storage, filename);
+      await new Promise((resolve, reject) => {
+        const task = uploadBytesResumable(storageRef, file);
+        task.on('state_changed',
+          snapshot => {
+            const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 90) + 10;
+            progressBar.style.width = pct + '%';
+          },
+          reject,
+          async () => {
+            const url = await getDownloadURL(task.snapshot.ref);
+            uploadedImageURLs.push(url);
+            const el = document.createElement('div');
+            el.className = 'img-prev-item';
+            el.innerHTML = `<img src="${url}" alt="upload"><button onclick="removeUploadedImg('${url}',this.parentElement)">✕</button>`;
+            previewEl.appendChild(el);
+            resolve();
+          }
+        );
+      });
+    } catch(err) {
+      // Fallback: use base64 data URL stored directly
+      console.warn('Storage upload failed, using base64 fallback:', err.message);
+      await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const dataUrl = e.target.result;
+          uploadedImageURLs.push(dataUrl);
+          const el = document.createElement('div');
+          el.className = 'img-prev-item';
+          const safeUrl = dataUrl.substring(0, 50);
+          el.innerHTML = `<img src="${dataUrl}" alt="upload"><button onclick="removeUploadedImgByIndex(${uploadedImageURLs.length-1},this.parentElement)">✕</button>`;
           previewEl.appendChild(el);
-          done++; progressBar.style.width=Math.round((done/files.length)*100)+'%';
-          res();
-        }
-      );
-    });
+          resolve();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
   }
-  progressWrap.style.display='none';
-  statusEl.textContent = `✅ ${uploadedImageURLs.length} image(s) uploaded.`;
+  progressBar.style.width = '100%';
+  setTimeout(() => { progressWrap.style.display = 'none'; progressBar.style.width = '0%'; }, 600);
+  statusEl.textContent = `✅ ${uploadedImageURLs.length} image(s) ready.`;
 };
 
 window.removeUploadedImg = (url, el) => {
-  uploadedImageURLs = uploadedImageURLs.filter(u=>u!==url);
+  uploadedImageURLs = uploadedImageURLs.filter(u => u !== url);
   el.remove();
+};
+window.removeUploadedImgByIndex = (idx, el) => {
+  uploadedImageURLs.splice(idx, 1);
+  el.remove();
+};
+
+window.addImageUrl = () => {
+  const input = document.getElementById('img-url-input');
+  const url = input.value.trim();
+  if(!url) return;
+  if(!url.startsWith('http')) { alert('Please enter a valid URL starting with http'); return; }
+  uploadedImageURLs.push(url);
+  const previewEl = document.getElementById('img-preview');
+  const el = document.createElement('div');
+  el.className = 'img-prev-item';
+  el.innerHTML = `<img src="${url}" onerror="this.src='https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200'"><button onclick="removeUploadedImg('${url}',this.parentElement)">✕</button>`;
+  previewEl.appendChild(el);
+  const statusEl = document.getElementById('upload-status');
+  if(statusEl) statusEl.textContent = `✅ ${uploadedImageURLs.length} image(s) ready.`;
+  input.value = '';
+};
+
+// ── MY LISTINGS ───────────────────────────────────────────────────────────────
+window.renderMyListings = async () => {
+  const grid  = document.getElementById('my-pgrid');
+  const stats = document.getElementById('my-listings-stats');
+  if(!currentUser) {
+    grid.innerHTML = `<div class="empty"><h3>🔐 Please sign in to view your listings.</h3>
+      <button class="nav-btn btn-dark" style="padding:12px 28px;margin-top:16px" onclick="showAuth()">Sign In</button></div>`;
+    return;
+  }
+  grid.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading…</p></div>';
+  try {
+    const snap = await getDocs(query(
+      collection(db,'properties'),
+      where('addedBy','==', currentUser.uid)
+    ));
+    // sort client-side by createdAt descending
+    const myProps = snap.docs.map(d=>({id:d.id,...d.data()}))
+      .sort((a,b)=> (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+    // also update local cache
+    myProps.forEach(p => {
+      if(!allProperties.find(x=>x.id===p.id)) allProperties.push(p);
+    });
+
+    // Stats bar
+    const forSale = myProps.filter(p=>p.status==='For Sale').length;
+    const forRent = myProps.filter(p=>p.status==='For Rent').length;
+    stats.innerHTML = `
+      <div class="acard" style="min-width:130px"><div class="acard-n">${myProps.length}</div><div class="acard-l">Total Posted</div></div>
+      <div class="acard" style="min-width:130px"><div class="acard-n">${forSale}</div><div class="acard-l">For Sale</div></div>
+      <div class="acard" style="min-width:130px"><div class="acard-n">${forRent}</div><div class="acard-l">For Rent</div></div>`;
+
+    if(!myProps.length) {
+      grid.innerHTML = `<div class="empty">
+        <h3>No listings yet</h3>
+        <p>You haven't posted any properties yet.</p>
+        <button class="nav-btn btn-gold" style="padding:12px 28px;margin-top:16px" onclick="showPage('add')">➕ Post Your First Property</button>
+      </div>`;
+      return;
+    }
+
+    // Render cards with Edit/Delete always visible (owner view)
+    grid.innerHTML = myProps.map(p=>`
+      <div class="pcard">
+        <div class="cimg" onclick="openPropModal('${p.id}')" style="cursor:pointer">
+          <img src="${p.image||'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80'}" alt="${p.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80'">
+          <span class="cbadge ${p.status==='For Sale'?'sale':'rent'}">${p.status}</span>
+          ${p.propId ? `<span style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.6);color:var(--gold);font-size:0.7rem;font-weight:700;padding:3px 9px;border-radius:5px;letter-spacing:1px">#${p.propId}</span>` : ''}
+        </div>
+        <div class="cbody">
+          <div class="cprice">${p.status==='For Rent'?'₹'+Number(p.price).toLocaleString('en-IN')+'<span>/mo</span>':'₹'+Number(p.price).toLocaleString('en-IN')}</div>
+          <div class="ctitle">${p.title}</div>
+          <div class="cloc">📍 ${p.location}</div>
+          <div class="cmeta">
+            <div class="mi">🛏 ${p.beds||'—'} Beds</div>
+            <div class="mi">🚿 ${p.baths||'—'} Baths</div>
+            <div class="mi">📐 ${p.area?Number(p.area).toLocaleString():'—'} ft²</div>
+          </div>
+          <!-- Always-visible owner actions -->
+          <div style="display:flex;gap:8px;margin-top:14px;border-top:1px solid rgba(15,35,24,0.07);padding-top:14px;">
+            <button class="oa-btn oa-edit" style="flex:1;padding:8px;border-radius:8px;font-size:0.82rem" onclick="openEditModal('${p.id}')">✏️ Edit</button>
+            <button class="oa-btn oa-del" style="flex:1;padding:8px;border-radius:8px;font-size:0.82rem" onclick="myListingDelete('${p.id}',this)">🗑 Delete</button>
+          </div>
+        </div>
+      </div>`).join('');
+  } catch(e) {
+    grid.innerHTML = `<div class="empty"><h3>⚠️ Error</h3><p>${e.message}</p></div>`;
+    console.error(e);
+  }
+};
+
+window.myListingDelete = async (id, btn) => {
+  if(!confirm('Delete this property? This cannot be undone.')) return;
+  btn.textContent='…'; btn.disabled=true;
+  try {
+    await deleteDoc(doc(db,'properties',id));
+    allProperties = allProperties.filter(p=>p.id!==id);
+    renderProps(allProperties);
+    renderMyListings();
+  } catch(e) { alert('Error: '+e.message); btn.textContent='🗑 Delete'; btn.disabled=false; }
+};
+
+// After edit save, refresh My Listings too if it's active
+const _origSaveEdit = window.saveEdit;
+window.saveEdit = async () => {
+  await _origSaveEdit();
+  if(document.getElementById('page-mylistings').classList.contains('active')) {
+    setTimeout(renderMyListings, 500);
+  }
 };
 
 // ── SUBMIT LISTING ────────────────────────────────────────────────────────────
