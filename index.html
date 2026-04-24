@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kerala Theeram — Premium Properties in God's Own Country</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Malayalam:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#EEF4EC; --dark:#0F2318; --gold:#C9A84C; --gold-light:#E8C97A;
+  --warm-gray:#4A6855; --white:#F5FAF3; --shadow:0 8px 40px rgba(15,35,24,0.12);
+  --radius:16px; --red:#c0392b; --green:#27ae60; --accent:#2E7D52;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(245,240,232,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.18);}
+.logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:800;color:var(--dark);}
+.logo span{color:var(--gold);font-family:'Noto Sans Malayalam',sans-serif;font-size:1.1rem;font-weight:600;margin-left:2px;}
+footer .flogo span{font-family:'Noto Sans Malayalam',sans-serif;font-size:1.2rem;font-weight:600;}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center;}
+.nav-links a{text-decoration:none;color:var(--warm-gray);font-size:0.9rem;font-weight:500;cursor:pointer;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-right{display:flex;gap:12px;align-items:center;}
+#nav-user{font-size:0.85rem;color:var(--warm-gray);display:none;}
+.nav-btn{border:none;padding:9px 22px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-dark{background:var(--dark);color:var(--cream);}
+.btn-dark:hover{background:var(--gold);color:var(--dark);}
+.btn-gold{background:var(--gold);color:var(--dark);}
+.btn-gold:hover{background:var(--dark);color:var(--cream);}
+.btn-outline{background:transparent;color:var(--dark);border:1.5px solid var(--dark);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── PAGES ── */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 48px 80px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 40%;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,28,16,0.85) 0%,rgba(10,28,16,0.55) 55%,rgba(10,28,16,0.20) 100%);}
+.hero-content{position:relative;z-index:1;}
+.hero-label{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:18px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,5.5rem);font-weight:800;line-height:1.06;max-width:700px;margin-bottom:24px;color:#fff;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero p{color:rgba(255,255,255,0.80);max-width:480px;line-height:1.75;font-size:1rem;margin-bottom:40px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+
+/* ── HERO SEARCH BOX ── */
+.hero-search-wrap{margin-top:8px;max-width:100%;width:100%;}
+.hero-search-title{
+  font-size:0.72rem;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(255,255,255,0.65);font-weight:500;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-search-title::before{
+  content:'';display:inline-block;width:28px;height:1px;background:var(--gold);
+}
+.hero-search{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr auto;
+  gap:0;
+  background:rgba(255,255,255,0.28);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border:1.5px solid rgba(255,255,255,0.55);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.hs-field{
+  display:flex;flex-direction:column;gap:6px;
+  padding:16px 22px;
+  border-right:1px solid rgba(255,255,255,0.30);
+  transition:background .2s;
+  cursor:text;
+  position:relative;
+}
+.hs-field:hover{background:rgba(255,255,255,0.18);}
+.hs-field:focus-within{background:rgba(255,255,255,0.22);}
+.hs-field:focus-within::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;
+  height:2.5px;background:var(--gold);border-radius:2px;
+}
+.hs-top{display:flex;align-items:center;gap:7px;}
+.hs-icon{font-size:1rem;line-height:1;}
+.hs-label{
+  font-size:0.65rem;letter-spacing:1.8px;text-transform:uppercase;
+  color:rgba(255,255,255,0.75);font-weight:700;line-height:1;
+}
+.hs-field input,
+.hs-field select{
+  background:transparent;border:none;outline:none;
+  font-family:'DM Sans',sans-serif;font-size:0.97rem;font-weight:600;
+  color:#fff;padding:0;
+  -webkit-appearance:none;appearance:none;
+  cursor:pointer;
+}
+.hs-field input::placeholder{color:rgba(255,255,255,0.50);font-weight:400;}
+.hs-field select option{background:#0F2318;color:#fff;}
+/* custom dropdown arrow */
+.hs-field.has-select::after{
+  content:'▾';position:absolute;right:16px;bottom:20px;
+  color:rgba(255,255,255,0.6);font-size:0.82rem;pointer-events:none;
+}
+.hs-field.has-select:focus-within::after{color:var(--gold);}
+/* search button */
+.hs-btn{
+  background:var(--gold);border:none;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;padding:20px 32px;
+  font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.88rem;
+  color:var(--dark);letter-spacing:0.5px;
+  transition:all .25s;min-width:100px;
+}
+.hs-btn:hover{background:#e8c55a;}
+.hs-btn svg{transition:transform .2s;}
+.hs-btn:hover svg{transform:scale(1.15);}
+
+/* ── SECTION ── */
+.section{padding:70px 48px;}
+.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;}
+.sec-label{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,2.8vw,2.6rem);font-weight:700;line-height:1.15;}
+.view-all{color:var(--gold);font-size:0.88rem;font-weight:500;border-bottom:1px solid var(--gold);padding-bottom:2px;cursor:pointer;transition:color .2s;}
+.view-all:hover{color:var(--dark);}
+
+/* ── OWNER ACTIONS ON CARD ── */
+.owner-actions{
+  position:absolute;bottom:10px;left:10px;
+  display:flex;gap:6px;
+  opacity:0;transition:opacity .25s;
+}
+.cimg:hover .owner-actions{opacity:1;}
+.oa-btn{
+  padding:5px 11px;border:none;border-radius:6px;
+  font-family:'DM Sans',sans-serif;font-size:0.76rem;font-weight:600;
+  cursor:pointer;transition:all .2s;backdrop-filter:blur(6px);
+}
+.oa-edit{background:rgba(255,255,255,0.88);color:var(--dark);}
+.oa-edit:hover{background:var(--gold);color:var(--dark);}
+.oa-del{background:rgba(192,57,43,0.85);color:#fff;}
+.oa-del:hover{background:var(--red);}
+
+/* ── EDIT MODAL ── */
+.edit-modal-box{
+  background:var(--white);border-radius:24px;max-width:680px;width:100%;
+  max-height:90vh;overflow-y:auto;padding:36px;
+  box-shadow:0 40px 100px rgba(15,35,24,0.3);animation:mIn .3s ease;
+}
+.edit-modal-box h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:24px;}
+
+.cpid{display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:1px;
+  color:var(--gold);background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);
+  border-radius:5px;padding:2px 8px;margin-bottom:6px;}
+.mpid{font-size:0.78rem;font-weight:700;letter-spacing:1px;color:var(--gold);
+  background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);
+  border-radius:6px;padding:3px 10px;display:inline-block;margin-bottom:8px;}
+
+/* ── GRID ── */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;}
+.pcard{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;cursor:pointer;position:relative;}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(26,18,8,0.16);}
+.cimg{position:relative;height:215px;overflow:hidden;background:#e8e0d0;}
+.cimg img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.pcard:hover .cimg img{transform:scale(1.05);}
+.cbadge{position:absolute;top:14px;left:14px;padding:4px 13px;border-radius:50px;font-size:0.72rem;font-weight:600;letter-spacing:0.5px;}
+.cbadge.sale{background:var(--gold);color:var(--dark);}
+.cbadge.rent{background:var(--dark);color:var(--cream);}
+.cfav{position:absolute;top:12px;right:12px;width:34px;height:34px;background:rgba(253,251,247,0.92);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.95rem;transition:background .2s;}
+.cfav:hover,.cfav.liked{background:var(--gold);}
+.cbody{padding:20px 22px 22px;}
+.cprice{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:4px;}
+.cprice span{font-size:0.82rem;font-weight:400;color:var(--warm-gray);font-family:'DM Sans',serif;}
+.ctitle{font-size:0.97rem;font-weight:500;margin-bottom:5px;}
+.cloc{color:var(--warm-gray);font-size:0.82rem;display:flex;align-items:center;gap:4px;margin-bottom:16px;}
+.cmeta{display:flex;gap:16px;border-top:1px solid rgba(26,18,8,0.07);padding-top:14px;}
+.mi{display:flex;align-items:center;gap:5px;font-size:0.8rem;color:var(--warm-gray);}
+
+/* ── LOADING ── */
+.loading{text-align:center;padding:60px;color:var(--warm-gray);}
+.spinner{width:34px;height:34px;border:3px solid rgba(201,168,76,0.3);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{text-align:center;padding:60px;}
+.empty p{color:var(--warm-gray);margin-top:8px;}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,18,8,0.65);z-index:300;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(5px);}
+.overlay.show{display:flex;}
+.modal{background:var(--white);border-radius:24px;max-width:820px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 40px 100px rgba(26,18,8,0.3);animation:mIn .3s ease;}
+@keyframes mIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+.mimg{height:300px;position:relative;overflow:hidden;background:#e8e0d0;}
+.mimg img{width:100%;height:100%;object-fit:cover;}
+.mclose{position:absolute;top:14px;right:14px;width:38px;height:38px;background:var(--white);border:none;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(26,18,8,0.15);}
+.mbody{padding:28px 32px;}
+.mprice{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--gold);margin-bottom:6px;}
+.mtitle{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;margin-bottom:6px;}
+.mloc{color:var(--warm-gray);margin-bottom:18px;}
+.mstats{display:flex;gap:24px;background:var(--cream);border-radius:12px;padding:16px 22px;margin:18px 0;flex-wrap:wrap;}
+.mst{text-align:center;}
+.mst-v{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;}
+.mst-k{font-size:0.75rem;color:var(--warm-gray);letter-spacing:0.5px;}
+.mdesc{color:var(--warm-gray);line-height:1.8;margin:14px 0;}
+.mmap{border-radius:12px;overflow:hidden;margin:16px 0;height:240px;}
+.mmap iframe{width:100%;height:100%;border:none;}
+.macts{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;}
+.macts button{flex:1;min-width:140px;}
+
+/* ── AUTH MODAL ── */
+.auth-modal{background:var(--white);border-radius:24px;max-width:420px;width:100%;padding:40px;box-shadow:0 40px 100px rgba(26,18,8,0.3);animation:mIn .3s ease;}
+.auth-modal h2{font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:8px;}
+.auth-modal p{color:var(--warm-gray);font-size:0.9rem;margin-bottom:28px;}
+.auth-tabs{display:flex;gap:0;margin-bottom:24px;border-radius:10px;overflow:hidden;border:1.5px solid rgba(26,18,8,0.10);}
+.auth-tab{flex:1;padding:10px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:0.9rem;cursor:pointer;transition:all .2s;}
+.auth-tab.active{background:var(--dark);color:var(--cream);}
+.finput{margin-bottom:16px;}
+.finput label{display:block;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;color:var(--warm-gray);margin-bottom:7px;font-weight:500;}
+.finput input{width:100%;border:1.5px solid rgba(26,18,8,0.12);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:0.95rem;background:var(--cream);color:var(--dark);outline:none;transition:border-color .2s;}
+.finput input:focus{border-color:var(--gold);}
+.auth-submit{width:100%;background:var(--dark);color:var(--cream);border:none;padding:13px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:500;cursor:pointer;transition:all .2s;margin-top:4px;}
+.auth-submit:hover{background:var(--gold);color:var(--dark);}
+.google-btn{width:100%;background:var(--white);color:var(--dark);border:1.5px solid rgba(26,18,8,0.15);padding:12px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:500;cursor:pointer;transition:all .2s;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.google-btn:hover{border-color:var(--gold);}
+.auth-err{color:var(--red);font-size:0.85rem;margin-top:10px;display:none;}
+.auth-divider{text-align:center;color:var(--warm-gray);font-size:0.82rem;margin:16px 0;position:relative;}
+.auth-divider::before,.auth-divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:rgba(26,18,8,0.10);}
+.auth-divider::before{left:0;}
+.auth-divider::after{right:0;}
+
+/* ── ADD LISTING ── */
+.add-section{padding:0 48px 80px;}
+.add-card{background:var(--white);border-radius:24px;padding:40px;box-shadow:var(--shadow);}
+.add-card h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:28px;}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.fg{display:flex;flex-direction:column;gap:7px;}
+.fg.full{grid-column:1/-1;}
+.fg label{font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;color:var(--warm-gray);font-weight:500;}
+.fg input,.fg select,.fg textarea{border:1.5px solid rgba(26,18,8,0.12);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:0.92rem;background:var(--cream);color:var(--dark);outline:none;transition:border-color .2s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);}
+.fg textarea{resize:vertical;min-height:80px;}
+.img-upload-area{border:2px dashed rgba(201,168,76,0.5);border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(201,168,76,0.04);}
+.img-upload-area:hover{border-color:var(--gold);background:rgba(201,168,76,0.08);}
+.img-upload-area p{color:var(--warm-gray);font-size:0.9rem;margin-top:8px;}
+.img-preview{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.img-prev-item{position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;}
+.img-prev-item img{width:100%;height:100%;object-fit:cover;}
+.img-prev-item button{position:absolute;top:2px;right:2px;background:rgba(26,18,8,0.7);color:white;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:0.75rem;display:flex;align-items:center;justify-content:center;}
+.upload-progress{height:4px;background:rgba(201,168,76,0.2);border-radius:2px;margin-top:8px;overflow:hidden;display:none;}
+.upload-bar{height:100%;background:var(--gold);border-radius:2px;transition:width .3s;}
+.sub-btn{margin-top:10px;background:var(--dark);color:var(--cream);border:none;padding:14px 36px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.sub-btn:hover{background:var(--gold);color:var(--dark);transform:translateY(-2px);}
+.sub-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.msg{border-radius:10px;padding:11px 16px;margin-top:14px;display:none;font-size:0.9rem;}
+.msg.ok{color:var(--green);background:#e8f5ee;}
+.msg.err{color:var(--red);background:#fde8e4;}
+.login-required{text-align:center;padding:40px;background:rgba(201,168,76,0.07);border-radius:16px;border:1.5px dashed rgba(201,168,76,0.4);}
+.login-required h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:10px;}
+.login-required p{color:var(--warm-gray);font-size:0.9rem;margin-bottom:20px;}
+
+/* ── ADMIN DASHBOARD ── */
+.admin-page{padding:90px 48px 60px;}
+.admin-page h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:32px;}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;margin-bottom:40px;}
+.astat{background:var(--white);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow);}
+.astat-n{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold);}
+.astat-l{font-size:0.8rem;color:var(--warm-gray);margin-top:4px;}
+.admin-table-wrap{background:var(--white);border-radius:20px;padding:24px;box-shadow:var(--shadow);overflow-x:auto;}
+.admin-table-wrap h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:20px;}
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;color:var(--warm-gray);font-weight:500;padding:10px 14px;border-bottom:1.5px solid rgba(26,18,8,0.08);}
+td{padding:13px 14px;font-size:0.9rem;border-bottom:1px solid rgba(26,18,8,0.05);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(201,168,76,0.04);}
+.td-img{width:52px;height:40px;border-radius:8px;object-fit:cover;}
+.status-badge{padding:3px 10px;border-radius:50px;font-size:0.75rem;font-weight:600;}
+.status-badge.sale{background:rgba(201,168,76,0.2);color:#8a6a10;}
+.status-badge.rent{background:rgba(26,18,8,0.08);color:var(--dark);}
+.del-btn{background:rgba(192,57,43,0.1);color:var(--red);border:none;padding:5px 12px;border-radius:6px;font-size:0.8rem;cursor:pointer;transition:all .2s;}
+.del-btn:hover{background:var(--red);color:white;}
+.edit-btn{background:rgba(201,168,76,0.15);color:#8a6a10;border:none;padding:5px 12px;border-radius:6px;font-size:0.8rem;cursor:pointer;transition:all .2s;margin-right:6px;}
+.edit-btn:hover{background:var(--gold);color:var(--dark);}
+.access-denied{text-align:center;padding:80px 40px;}
+.access-denied h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:12px;}
+.access-denied p{color:var(--warm-gray);}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);color:rgba(245,240,232,0.65);padding:50px 48px;text-align:center;}
+footer .flogo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:var(--cream);display:block;margin-bottom:12px;}
+footer .flogo span{color:var(--gold);}
+footer p{font-size:0.85rem;}
+
+/* ── HAMBURGER MENU ── */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(245,244,240,0.98);backdrop-filter:blur(12px);z-index:99;padding:20px 24px;border-bottom:1px solid rgba(201,168,76,0.2);flex-direction:column;gap:0;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{display:block;padding:14px 0;font-size:1rem;color:var(--dark);font-weight:500;border-bottom:1px solid rgba(15,35,24,0.07);cursor:pointer;}
+.mobile-menu a:last-child{border-bottom:none;}
+.mobile-menu a:hover{color:var(--gold);}
+
+/* ── ADMIN EXTRA ── */
+.admin-toolbar{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
+.admin-toolbar h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin:0;}
+.admin-toolbar-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.atbtn{padding:9px 18px;border-radius:8px;border:none;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.atbtn-green{background:rgba(39,174,96,0.15);color:#1a7a44;}
+.atbtn-green:hover{background:#27ae60;color:#fff;}
+.atbtn-red{background:rgba(192,57,43,0.12);color:var(--red);}
+.atbtn-red:hover{background:var(--red);color:#fff;}
+.atbtn-gold{background:rgba(201,168,76,0.2);color:#7a5c10;}
+.atbtn-gold:hover{background:var(--gold);color:var(--dark);}
+.search-admin{padding:9px 14px;border:1.5px solid rgba(15,35,24,0.12);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.88rem;background:var(--cream);color:var(--dark);outline:none;min-width:200px;}
+.search-admin:focus{border-color:var(--gold);}
+.admin-card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:32px;}
+.acard{background:var(--white);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);}
+.acard-n{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--gold);}
+.acard-l{font-size:0.78rem;color:var(--warm-gray);margin-top:3px;}
+/* mobile card view for admin table */
+.prop-mobile-card{display:none;background:var(--white);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow);}
+.prop-mobile-card img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:12px;}
+.prop-mobile-card h4{font-size:1rem;font-weight:600;margin-bottom:4px;}
+.prop-mobile-card p{font-size:0.82rem;color:var(--warm-gray);margin-bottom:10px;}
+.prop-mobile-card .card-actions{display:flex;gap:8px;}
+
+/* ── FULL RESPONSIVE ── */
+@media(max-width:1024px){
+  nav{padding:14px 28px;}
+  .hero,.section,.add-section{padding-left:28px;padding-right:28px;}
+  .admin-page{padding:90px 28px 60px;}
+  .pgrid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
+  .hero-search{grid-template-columns:1fr 1fr 1fr;}
+  .hs-btn{grid-column:1/-1;flex-direction:row;gap:10px;padding:16px;border-radius:0 0 18px 18px;border-top:1px solid rgba(255,255,255,0.12);}
+  .hs-field:last-of-type{border-right:none;}
+}
+@media(max-width:768px){
+  /* NAV */
+  nav{padding:14px 20px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  #nav-user{display:none !important;}
+  /* HERO */
+  .hero{padding:100px 20px 60px;}
+  .hero-label{font-size:0.68rem;letter-spacing:2px;}
+  .hero h1{font-size:2.4rem;}
+  .hero p{font-size:0.92rem;}
+  /* SEARCH */
+  .hero-search-wrap{max-width:100%;}
+  .hero-search{
+    grid-template-columns:1fr;
+    border-radius:16px;
+  }
+  .hs-field{border-right:none;border-bottom:1px solid rgba(255,255,255,0.12);}
+  .hs-field:last-of-type{border-bottom:none;}
+  .hs-field.has-select::after{bottom:18px;}
+  .hs-btn{
+    grid-column:1;flex-direction:row;gap:10px;
+    padding:16px 20px;font-size:1rem;
+    border-radius:0 0 14px 14px;
+  }
+  /* LISTINGS */
+  .section{padding:50px 20px;}
+  .sec-header{flex-direction:column;align-items:flex-start;gap:12px;}
+  .pgrid{grid-template-columns:1fr;}
+  /* MODAL */
+  .modal{border-radius:16px;}
+  .mimg{height:220px;}
+  .mbody{padding:18px 16px;}
+  .mprice{font-size:1.5rem;}
+  .mtitle{font-size:1.2rem;}
+  .mstats{gap:14px;padding:12px 16px;}
+  .mst-v{font-size:1.1rem;}
+  .macts{flex-direction:column;}
+  .macts button{width:100%;}
+  /* ADD FORM */
+  .add-section{padding:0 20px 60px;}
+  .add-card{padding:24px 20px;}
+  .fgrid{grid-template-columns:1fr;}
+  .fg.full{grid-column:1;}
+  /* ADMIN */
+  .admin-page{padding:80px 16px 40px;}
+  .admin-page h2{font-size:1.5rem;}
+  .admin-toolbar{flex-direction:column;align-items:flex-start;gap:12px;}
+  .admin-card-grid{grid-template-columns:repeat(2,1fr);}
+  .admin-table-wrap{display:none;}
+  .prop-mobile-card{display:block;}
+  /* AUTH */
+  .auth-modal{padding:28px 20px;border-radius:16px;}
+  /* FOOTER */
+  footer{padding:40px 20px;}
+}
+@media(max-width:420px){
+  .hero h1{font-size:2rem;}
+  .hero-stats{gap:18px;}
+  .stat-num{font-size:1.5rem;}
+  .admin-card-grid{grid-template-columns:repeat(2,1fr);}
+  .mstats{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="logo">Kerala Theeram<span> കേരളതീരം</span></div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')">Home</a></li>
+    <li><a onclick="showPage('home');setTimeout(()=>document.getElementById('listings').scrollIntoView({behavior:'smooth'}),100)">Listings</a></li>
+    <li><a onclick="showPage('add')">Post Property</a></li>
+    <li><a onclick="showPage('admin')" id="admin-link" style="display:none">⚙️ Admin</a></li>
+  </ul>
+  <div class="nav-right">
+    <span id="nav-user"></span>
+    <button class="nav-btn btn-dark" id="login-btn" onclick="showAuth()">Sign In</button>
+    <button class="nav-btn btn-outline" id="logout-btn" style="display:none" onclick="doLogout()">Sign Out</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a onclick="showPage('home');closeMenu()">🏠 Home</a>
+  <a onclick="showPage('home');setTimeout(()=>document.getElementById('listings').scrollIntoView({behavior:'smooth'}),100);closeMenu()">🏘️ Listings</a>
+  <a onclick="showPage('add');closeMenu()">➕ Post Property</a>
+  <a id="admin-mobile-link" style="display:none" onclick="showPage('admin');closeMenu()">⚙️ Admin Dashboard</a>
+  <a id="mobile-signin" onclick="showAuth();closeMenu()">🔐 Sign In</a>
+  <a id="mobile-signout" style="display:none" onclick="doLogout();closeMenu()">🚪 Sign Out</a>
+</div>
+
+<!-- ═══ HOME PAGE ═══ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <!-- Kerala aerial background image -->
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1800&q=85" alt="Kerala aerial view with coconut trees and highways" onerror="this.src='https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=1800&q=85'">
+    </div>
+    <div class="hero-content">
+      <div class="hero-label">കേരളതീരം · God's Own Country · Premium Real Estate</div>
+      <h1>Find Your <em>Dream</em><br>Home in Kerala</h1>
+      <p>Kerala Theeram — your trusted partner for premium properties across Kerala. From backwater villas in Alleppey to hilltop estates in Munnar, your paradise home awaits.</p>
+      <div class="hero-btns">
+        <button class="nav-btn btn-gold" style="padding:14px 32px;font-size:0.95rem" onclick="document.getElementById('listings').scrollIntoView({behavior:'smooth'})">Browse Listings</button>
+        <button class="nav-btn" style="padding:14px 32px;font-size:0.95rem;background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.5);border-radius:50px" onclick="showPage('add')">➕ Post Your Property</button>
+      </div>
+      <!-- Beautiful Search Box -->
+      <div class="hero-search-wrap">
+        <div class="hero-search-title">Search Properties</div>
+        <div class="hero-search">
+          <!-- Location -->
+          <div class="hs-field">
+            <div class="hs-top"><span class="hs-icon">📍</span><span class="hs-label">Location</span></div>
+            <input type="text" id="s-loc" placeholder="City or district…" autocomplete="off">
+          </div>
+          <!-- Type -->
+          <div class="hs-field has-select">
+            <div class="hs-top"><span class="hs-icon">🏠</span><span class="hs-label">Property Type</span></div>
+            <select id="s-type">
+              <option value="">Any Type</option>
+              <option>House</option>
+              <option>Apartment</option>
+              <option>Villa</option>
+              <option>Penthouse</option>
+              <option>Land</option>
+            </select>
+          </div>
+          <!-- Status -->
+          <div class="hs-field has-select">
+            <div class="hs-top"><span class="hs-icon">🔑</span><span class="hs-label">Looking To</span></div>
+            <select id="s-status">
+              <option value="">Buy or Rent</option>
+              <option value="For Sale">Buy</option>
+              <option value="For Rent">Rent</option>
+            </select>
+          </div>
+          <!-- Price -->
+          <div class="hs-field">
+            <div class="hs-top"><span class="hs-icon">💰</span><span class="hs-label">Max Budget (₹)</span></div>
+            <input type="number" id="s-price" placeholder="Any budget">
+          </div>
+          <!-- Button -->
+          <button class="hs-btn" onclick="filterProps()">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="listings">
+    <div class="sec-header">
+      <div><div class="sec-label">Available Properties</div><div class="sec-title">Featured Listings</div></div>
+      <span class="view-all" onclick="filterProps()">View All →</span>
+    </div>
+    <div class="pgrid" id="pgrid">
+      <div class="loading"><div class="spinner"></div><p>Loading properties…</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ ADD LISTING PAGE ═══ -->
+<div class="page" id="page-add" style="padding-top:80px;">
+  <section class="add-section">
+    <div class="add-card" id="add-card-content">
+      <!-- filled by JS based on auth state -->
+    </div>
+  </section>
+</div>
+
+<!-- ═══ ADMIN PAGE ═══ -->
+<div class="page" id="page-admin">
+  <div class="admin-page" id="admin-content">
+    <div class="loading"><div class="spinner"></div><p>Loading…</p></div>
+  </div>
+</div>
+
+<footer>
+  <div class="flogo">Kerala Theeram<span> കേരളതീരം</span></div>
+  <p>Premium properties across God's Own Country &nbsp;·&nbsp; contact@keralatheraam.in</p>
+  <p style="margin-top:8px;opacity:0.4;font-size:0.76rem">© 2026 Kerala Theeram. Powered by Firebase.</p>
+</footer>
+
+<!-- ═══ PROPERTY DETAIL MODAL ═══ -->
+<div class="overlay" id="prop-modal" onclick="closePropModal(event)">
+  <div class="modal">
+    <div class="mimg"><img id="m-img" src="" alt=""><button class="mclose" onclick="document.getElementById('prop-modal').classList.remove('show')">✕</button></div>
+    <div class="mbody">
+      <div id="m-propid"></div>
+      <div class="mprice" id="m-price"></div>
+      <div class="mtitle" id="m-title"></div>
+      <div class="mloc" id="m-loc"></div>
+      <div class="mstats">
+        <div class="mst"><div class="mst-v" id="m-beds"></div><div class="mst-k">Beds</div></div>
+        <div class="mst"><div class="mst-v" id="m-baths"></div><div class="mst-k">Baths</div></div>
+        <div class="mst"><div class="mst-v" id="m-area"></div><div class="mst-k">Sq Ft</div></div>
+        <div class="mst"><div class="mst-v" id="m-type"></div><div class="mst-k">Type</div></div>
+      </div>
+      <div class="mdesc" id="m-desc"></div>
+      <div class="mmap" id="m-map"></div>
+      <div class="macts">
+        <button class="nav-btn btn-gold" id="m-contact" style="padding:13px 28px">📞 Contact Agent</button>
+        <button class="nav-btn btn-outline" onclick="document.getElementById('prop-modal').classList.remove('show')" style="padding:13px 28px">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ EDIT PROPERTY MODAL ═══ -->
+<div class="overlay" id="edit-overlay" onclick="closeEditModal(event)">
+  <div class="edit-modal-box">
+    <h3>✏️ Edit Your Property</h3>
+    <div class="fgrid">
+      <div class="fg"><label>Title</label><input type="text" id="e-title"></div>
+      <div class="fg"><label>Price (₹)</label><input type="number" id="e-price"></div>
+      <div class="fg"><label>Location</label><input type="text" id="e-location"></div>
+      <div class="fg"><label>Type</label>
+        <select id="e-type"><option>House</option><option>Apartment</option><option>Villa</option><option>Penthouse</option><option>Land</option></select>
+      </div>
+      <div class="fg"><label>Status</label>
+        <select id="e-status"><option>For Sale</option><option>For Rent</option></select>
+      </div>
+      <div class="fg"><label>Area (sq ft)</label><input type="number" id="e-area"></div>
+      <div class="fg"><label>Bedrooms</label><input type="number" id="e-beds"></div>
+      <div class="fg"><label>Bathrooms</label><input type="number" id="e-baths"></div>
+      <div class="fg"><label>Contact Phone</label><input type="text" id="e-phone"></div>
+      <div class="fg"><label>Image URL</label><input type="text" id="e-image"></div>
+      <div class="fg full"><label>Description</label><textarea id="e-desc"></textarea></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+      <button class="sub-btn" id="e-save-btn" onclick="saveEdit()">💾 Save Changes</button>
+      <button class="sub-btn" style="background:transparent;color:var(--dark);border:1.5px solid var(--dark)" onclick="document.getElementById('edit-overlay').classList.remove('show')">Cancel</button>
+    </div>
+    <div class="msg ok" id="e-ok-msg">✅ Property updated successfully!</div>
+    <div class="msg err" id="e-err-msg"></div>
+  </div>
+</div>
+
+<!-- ═══ AUTH MODAL ═══ -->
+<div class="overlay" id="auth-overlay" onclick="closeAuthModal(event)">
+  <div class="auth-modal">
+    <h2>Welcome to Kerala Theeram</h2>
+    <p>Sign in to list properties and save favorites</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+      <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Register</button>
+    </div>
+    <div id="auth-login-form">
+      <div class="finput"><label>Email</label><input type="email" id="a-email" placeholder="you@example.com"></div>
+      <div class="finput"><label>Password</label><input type="password" id="a-pass" placeholder="••••••••"></div>
+      <button class="auth-submit" onclick="doLogin()">Sign In</button>
+    </div>
+    <div id="auth-reg-form" style="display:none">
+      <div class="finput"><label>Full Name</label><input type="text" id="a-name" placeholder="Your name"></div>
+      <div class="finput"><label>Email</label><input type="email" id="a-remail" placeholder="you@example.com"></div>
+      <div class="finput"><label>Password</label><input type="password" id="a-rpass" placeholder="Min 6 characters"></div>
+      <button class="auth-submit" onclick="doRegister()">Create Account</button>
+    </div>
+    <div class="auth-divider">or</div>
+    <button class="google-btn" onclick="doGoogle()">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.7 33.2 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-4.9l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.7-2.8-11.3-7H6.1C9.4 38.8 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.4-2.4 4.4-4.4 5.9l6.2 5.2C40.4 35.6 44 30.3 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
+      Continue with Google
+    </button>
+    <div class="auth-err" id="auth-err"></div>
+  </div>
+</div>
+
+<!-- ═══ FIREBASE ═══ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getFirestore, collection, addDoc, getDocs, deleteDoc, doc,
+  query, orderBy, serverTimestamp, where, getDoc, updateDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {
+  getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  getStorage, ref, uploadBytesResumable, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+// ── YOUR FIREBASE CONFIG ──────────────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyArtaZG2ZtphctIMnDagENyesWxYHohihY",
+  authDomain: "realestate-488f7.firebaseapp.com",
+  projectId: "realestate-488f7",
+  storageBucket: "realestate-488f7.firebasestorage.app",
+  messagingSenderId: "1077774922419",
+  appId: "1:1077774922419:web:fbdc497bbcfd81309b76c6"
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── ADMIN EMAIL ───────────────────────────────────────────────────────────────
+const ADMIN_EMAIL = "gstcell.com@gmail.com";
+// ─────────────────────────────────────────────────────────────────────────────
+
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
+const gProvider = new GoogleAuthProvider();
+
+let allProperties = [];
+let currentUser   = null;
+let uploadedImageURLs = [];
+
+// ── SEED DATA ─────────────────────────────────────────────────────────────────
+const seedData = [
+  { title:"Backwater Villa with Private Jetty", price:38000000, location:"Alleppey, Kerala", type:"Villa", status:"For Sale", beds:4, baths:3, area:3800, image:"https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80", description:"Stunning backwater villa with private jetty, coconut groves, and panoramic houseboat views. A true Kerala paradise.", phone:"+91 94470 12345", lat:"9.4981", lng:"76.3388" },
+  { title:"Modern Flat in Kochi", price:18000, location:"Marine Drive, Kochi", type:"Apartment", status:"For Rent", beds:3, baths:2, area:1550, image:"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80", description:"Fully furnished 3BHK with sea-facing balcony, gym, and covered parking in the heart of Ernakulam.", phone:"+91 98470 23456", lat:"9.9816", lng:"76.2999" },
+  { title:"Hilltop Tea Estate Bungalow", price:55000000, location:"Munnar, Idukki", type:"House", status:"For Sale", beds:5, baths:4, area:5400, image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", description:"Colonial-era bungalow set among rolling tea gardens at 5,000 ft. Breathtaking misty views.", phone:"+91 94460 34567", lat:"10.0889", lng:"77.0595" },
+  { title:"Beach House in Kovalam", price:72000000, location:"Kovalam, Thiruvananthapuram", type:"Villa", status:"For Sale", beds:4, baths:3, area:4200, image:"https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80", description:"Luxury beachfront villa steps from the famous Kovalam lighthouse beach. Private pool and garden.", phone:"+91 94461 45678", lat:"8.3988", lng:"76.9784" },
+  { title:"Traditional Tharavad House", price:12000, location:"Thrissur, Kerala", type:"House", status:"For Rent", beds:4, baths:2, area:2800, image:"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80", description:"Beautifully restored traditional Kerala nalukettu with inner courtyard, tulsi thara, and mango trees.", phone:"+91 94462 56789", lat:"10.5276", lng:"76.2144" },
+  { title:"IT Corridor Studio", price:22000, location:"Technopark, Thiruvananthapuram", type:"Apartment", status:"For Rent", beds:1, baths:1, area:680, image:"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80", description:"Modern studio apartment walking distance from Technopark. Fully furnished with fast internet.", phone:"+91 94463 67890", lat:"8.5530", lng:"76.8802" }
+];
+
+// ── PROPERTY ID COUNTER ───────────────────────────────────────────────────────
+async function getNextPropId() {
+  const counterRef = doc(db, 'meta', 'propCounter');
+  try {
+    const snap = await getDoc(counterRef);
+    let next = 1000;
+    if(snap.exists()) {
+      next = (snap.data().current || 999) + 1;
+    }
+    await updateDoc(counterRef, { current: next }).catch(async () => {
+      // doc doesn't exist yet, create it
+      await addDoc(collection(db,'meta'), { current: next });
+    });
+    // use setDoc instead for reliability
+    const { setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    await setDoc(counterRef, { current: next });
+    return next;
+  } catch(e) {
+    // fallback: use timestamp-based id
+    return 1000 + Math.floor(Math.random() * 9000);
+  }
+}
+
+async function seedIfEmpty(colRef) {
+  const snap = await getDocs(colRef);
+  if(snap.empty) {
+    let counter = 1000;
+    const { setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    for(const p of seedData) {
+      await addDoc(colRef, { ...p, propId: counter, createdAt: serverTimestamp(), addedBy:"seed" });
+      counter++;
+    }
+    // save counter state
+    await setDoc(doc(db,'meta','propCounter'), { current: counter - 1 });
+  } else {
+    // backfill any properties missing propId
+    const { setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    const counterSnap = await getDoc(doc(db,'meta','propCounter'));
+    let maxId = counterSnap.exists() ? (counterSnap.data().current || 999) : 999;
+    let needsUpdate = false;
+    for(const d of snap.docs) {
+      if(!d.data().propId) {
+        maxId++;
+        await updateDoc(doc(db,'properties',d.id), { propId: maxId });
+        needsUpdate = true;
+      }
+    }
+    if(needsUpdate) {
+      await setDoc(doc(db,'meta','propCounter'), { current: maxId });
+    }
+  }
+}
+
+// ── HAMBURGER MENU ────────────────────────────────────────────────────────────
+window.toggleMenu = () => {
+  const menu = document.getElementById('mobile-menu');
+  const btn  = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+};
+window.closeMenu = () => {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+};
+
+// ── AUTH STATE ────────────────────────────────────────────────────────────────
+onAuthStateChanged(auth, user => {
+  currentUser = user;
+  const loginBtn   = document.getElementById('login-btn');
+  const logoutBtn  = document.getElementById('logout-btn');
+  const navUser    = document.getElementById('nav-user');
+  const adminLink  = document.getElementById('admin-link');
+  const adminMLink = document.getElementById('admin-mobile-link');
+  const mSignin    = document.getElementById('mobile-signin');
+  const mSignout   = document.getElementById('mobile-signout');
+  if(user) {
+    loginBtn.style.display   = 'none';
+    logoutBtn.style.display  = 'block';
+    navUser.style.display    = 'block';
+    navUser.textContent      = user.displayName || user.email.split('@')[0];
+    mSignin.style.display    = 'none';
+    mSignout.style.display   = 'block';
+    const isAdmin = user.email === ADMIN_EMAIL;
+    adminLink.style.display  = isAdmin ? 'block' : 'none';
+    adminMLink.style.display = isAdmin ? 'block' : 'none';
+  } else {
+    loginBtn.style.display   = 'block';
+    logoutBtn.style.display  = 'none';
+    navUser.style.display    = 'none';
+    adminLink.style.display  = 'none';
+    adminMLink.style.display = 'none';
+    mSignin.style.display    = 'block';
+    mSignout.style.display   = 'none';
+  }
+  renderAddForm();
+  if(document.getElementById('page-admin').classList.contains('active')) renderAdmin();
+});
+
+// ── AUTH FUNCTIONS ────────────────────────────────────────────────────────────
+window.showAuth = () => document.getElementById('auth-overlay').classList.add('show');
+window.closeAuthModal = e => { if(e.target.id==='auth-overlay') document.getElementById('auth-overlay').classList.remove('show'); };
+window.switchTab = tab => {
+  document.getElementById('auth-login-form').style.display = tab==='login'?'block':'none';
+  document.getElementById('auth-reg-form').style.display   = tab==='register'?'block':'none';
+  document.getElementById('tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('tab-register').classList.toggle('active', tab==='register');
+  document.getElementById('auth-err').style.display='none';
+};
+function showAuthErr(msg) { const e=document.getElementById('auth-err'); e.textContent=msg; e.style.display='block'; }
+
+window.doLogin = async () => {
+  const email=document.getElementById('a-email').value.trim();
+  const pass=document.getElementById('a-pass').value;
+  if(!email||!pass) return showAuthErr('Please fill in all fields.');
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    document.getElementById('auth-overlay').classList.remove('show');
+  } catch(e) { showAuthErr(e.code==='auth/invalid-credential'?'Invalid email or password.':e.message); }
+};
+
+window.doRegister = async () => {
+  const name=document.getElementById('a-name').value.trim();
+  const email=document.getElementById('a-remail').value.trim();
+  const pass=document.getElementById('a-rpass').value;
+  if(!name||!email||!pass) return showAuthErr('Please fill in all fields.');
+  if(pass.length<6) return showAuthErr('Password must be at least 6 characters.');
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await updateProfile(cred.user, { displayName: name });
+    document.getElementById('auth-overlay').classList.remove('show');
+  } catch(e) { showAuthErr(e.code==='auth/email-already-in-use'?'Email already registered.':e.message); }
+};
+
+window.doGoogle = async () => {
+  try {
+    await signInWithPopup(auth, gProvider);
+    document.getElementById('auth-overlay').classList.remove('show');
+  } catch(e) { showAuthErr(e.message); }
+};
+
+window.doLogout = async () => { await signOut(auth); showPage('home'); };
+
+// ── PAGE NAVIGATION ───────────────────────────────────────────────────────────
+window.showPage = page => {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  window.scrollTo(0,0);
+  if(page==='add') renderAddForm();
+  if(page==='admin') renderAdmin();
+};
+
+// ── LOAD PROPERTIES ───────────────────────────────────────────────────────────
+async function loadProperties() {
+  const colRef = collection(db, "properties");
+  try {
+    await seedIfEmpty(colRef);
+    const snap = await getDocs(query(colRef, orderBy("createdAt","desc")));
+    allProperties = snap.docs.map(d=>({id:d.id,...d.data()}));
+    
+    renderProps(allProperties);
+  } catch(e) {
+    console.error(e);
+    const msg = e.code==='permission-denied'
+      ? '<h3>⚠️ Permission Denied</h3><p>Update your Firestore Rules to: <b>allow read, write: if true;</b></p>'
+      : '<h3>⚠️ Error</h3><p>'+e.message+'</p>';
+    document.getElementById('pgrid').innerHTML = `<div class="empty">${msg}</div>`;
+  }
+}
+
+// ── RENDER CARDS ──────────────────────────────────────────────────────────────
+function renderProps(props) {
+  const grid = document.getElementById('pgrid');
+  if(!props.length) { grid.innerHTML='<div class="empty"><h3>No properties found</h3><p>Try adjusting your filters.</p></div>'; return; }
+  grid.innerHTML = props.map(p=>{
+    const isOwner = currentUser && (currentUser.uid === p.addedBy || currentUser.email === ADMIN_EMAIL);
+    return `
+    <div class="pcard" onclick="openPropModal('${p.id}')">
+      <div class="cimg">
+        <img src="${p.image||'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80'}" alt="${p.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80'">
+        <span class="cbadge ${p.status==='For Sale'?'sale':'rent'}">${p.status||'For Sale'}</span>
+        <button class="cfav" onclick="event.stopPropagation()" title="Save">♡</button>
+        ${isOwner ? `<div class="owner-actions" onclick="event.stopPropagation()">
+          <button class="oa-btn oa-edit" onclick="openEditModal('${p.id}')" title="Edit">✏️ Edit</button>
+          <button class="oa-btn oa-del" onclick="ownerDelete('${p.id}',this)" title="Delete">🗑 Delete</button>
+        </div>` : ''}
+      </div>
+      <div class="cbody">
+        ${p.propId ? `<div class="cpid"># ${p.propId}</div>` : ''}
+        <div class="cprice">${p.status==='For Rent'?'₹'+Number(p.price).toLocaleString('en-IN')+'<span>/mo</span>':'₹'+Number(p.price).toLocaleString('en-IN')}</div>
+        <div class="ctitle">${p.title}</div>
+        <div class="cloc">📍 ${p.location}</div>
+        <div class="cmeta">
+          <div class="mi">🛏 ${p.beds||'—'} Beds</div>
+          <div class="mi">🚿 ${p.baths||'—'} Baths</div>
+          <div class="mi">📐 ${p.area?Number(p.area).toLocaleString():'—'} ft²</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── FILTER ────────────────────────────────────────────────────────────────────
+window.filterProps = () => {
+  const loc  = document.getElementById('s-loc').value.toLowerCase();
+  const type = document.getElementById('s-type').value;
+  const stat = document.getElementById('s-status').value;
+  const maxP = parseFloat(document.getElementById('s-price').value)||Infinity;
+  renderProps(allProperties.filter(p=>
+    (!loc  || p.location.toLowerCase().includes(loc)||p.title.toLowerCase().includes(loc)) &&
+    (!type || p.type===type) &&
+    (!stat || p.status===stat) &&
+    (parseFloat(p.price)||0)<=maxP
+  ));
+  document.getElementById('listings').scrollIntoView({behavior:'smooth'});
+};
+
+// ── PROPERTY MODAL ────────────────────────────────────────────────────────────
+window.openPropModal = id => {
+  const p = allProperties.find(x=>x.id===id); if(!p) return;
+  const pidEl = document.getElementById('m-propid');
+  pidEl.innerHTML = p.propId ? `<span class="mpid">Property ID: #${p.propId}</span>` : '';
+  document.getElementById('m-img').src   = p.image||'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80';
+  document.getElementById('m-price').textContent = '₹'+Number(p.price).toLocaleString('en-IN')+(p.status==='For Rent'?'/mo':'');
+  document.getElementById('m-title').textContent = p.title;
+  document.getElementById('m-loc').textContent   = '📍 '+p.location+' · '+p.status;
+  document.getElementById('m-beds').textContent  = p.beds||'—';
+  document.getElementById('m-baths').textContent = p.baths||'—';
+  document.getElementById('m-area').textContent  = p.area?Number(p.area).toLocaleString()+'':'' || '—';
+  document.getElementById('m-type').textContent  = p.type||'—';
+  document.getElementById('m-desc').textContent  = p.description||'No description.';
+  document.getElementById('m-contact').onclick   = ()=>{ if(p.phone) window.open('tel:'+p.phone); };
+  // Google Maps embed
+  const mapDiv = document.getElementById('m-map');
+  if(p.lat && p.lng) {
+    mapDiv.innerHTML = `<iframe src="https://maps.google.com/maps?q=${p.lat},${p.lng}&z=15&output=embed" allowfullscreen loading="lazy"></iframe>`;
+  } else {
+    const q = encodeURIComponent(p.location);
+    mapDiv.innerHTML = `<iframe src="https://maps.google.com/maps?q=${q}&z=13&output=embed" allowfullscreen loading="lazy"></iframe>`;
+  }
+  document.getElementById('prop-modal').classList.add('show');
+};
+window.closePropModal = e=>{ if(e.target.id==='prop-modal') document.getElementById('prop-modal').classList.remove('show'); };
+
+// ── ADD LISTING FORM ──────────────────────────────────────────────────────────
+window.renderAddForm = () => {
+  const card = document.getElementById('add-card-content');
+  if(!currentUser) {
+    card.innerHTML = `<div class="login-required">
+      <h3>🔐 Sign In Required</h3>
+      <p>You need to sign in to list a property on Estato.</p>
+      <button class="nav-btn btn-dark" style="padding:12px 28px" onclick="showAuth()">Sign In / Register</button>
+    </div>`;
+    return;
+  }
+  card.innerHTML = `
+    <h3>📝 List Your Property</h3>
+    <div class="fgrid">
+      <div class="fg"><label>Property Title</label><input type="text" id="f-title" placeholder="e.g. Modern 3BHK Apartment"></div>
+      <div class="fg"><label>Price (₹)</label><input type="number" id="f-price" placeholder="e.g. 7500000"></div>
+      <div class="fg"><label>Location</label><input type="text" id="f-location" placeholder="City, State"></div>
+      <div class="fg"><label>Type</label>
+        <select id="f-type"><option>House</option><option>Apartment</option><option>Villa</option><option>Penthouse</option><option>Land</option></select>
+      </div>
+      <div class="fg"><label>Status</label>
+        <select id="f-status"><option>For Sale</option><option>For Rent</option></select>
+      </div>
+      <div class="fg"><label>Area (sq ft)</label><input type="number" id="f-area" placeholder="e.g. 1800"></div>
+      <div class="fg"><label>Bedrooms</label><input type="number" id="f-beds" placeholder="e.g. 3"></div>
+      <div class="fg"><label>Bathrooms</label><input type="number" id="f-baths" placeholder="e.g. 2"></div>
+      <div class="fg"><label>Latitude (optional)</label><input type="text" id="f-lat" placeholder="e.g. 12.9716"></div>
+      <div class="fg"><label>Longitude (optional)</label><input type="text" id="f-lng" placeholder="e.g. 77.5946"></div>
+      <div class="fg"><label>Contact Phone</label><input type="text" id="f-phone" placeholder="+91 00000 00000"></div>
+      <div class="fg full"><label>Description</label><textarea id="f-desc" placeholder="Describe the property, amenities, surroundings…"></textarea></div>
+      <div class="fg full">
+        <label>Property Images</label>
+        <div class="img-upload-area" id="upload-area" onclick="document.getElementById('img-file-input').click()">
+          <div style="font-size:2rem">📸</div>
+          <p>Click to upload images (JPG, PNG — max 5MB each)</p>
+          <p style="font-size:0.8rem;margin-top:4px;color:#aaa">Multiple images supported</p>
+        </div>
+        <input type="file" id="img-file-input" accept="image/*" multiple style="display:none" onchange="handleImageUpload(event)">
+        <div class="upload-progress" id="upload-progress"><div class="upload-bar" id="upload-bar" style="width:0%"></div></div>
+        <div class="img-preview" id="img-preview"></div>
+        <p id="upload-status" style="font-size:0.82rem;color:var(--warm-gray);margin-top:6px;"></p>
+      </div>
+    </div>
+    <button class="sub-btn" id="submit-btn" onclick="submitListing()">Submit Listing</button>
+    <div class="msg ok" id="ok-msg">✅ Property listed successfully!</div>
+    <div class="msg err" id="err-msg"></div>`;
+  uploadedImageURLs = [];
+};
+
+// ── IMAGE UPLOAD ──────────────────────────────────────────────────────────────
+window.handleImageUpload = async (event) => {
+  const files = Array.from(event.target.files);
+  if(!files.length) return;
+  const progressWrap = document.getElementById('upload-progress');
+  const progressBar  = document.getElementById('upload-bar');
+  const statusEl     = document.getElementById('upload-status');
+  const previewEl    = document.getElementById('img-preview');
+  progressWrap.style.display = 'block';
+  statusEl.textContent = `Uploading ${files.length} image(s)…`;
+  let done = 0;
+  for(const file of files) {
+    if(file.size > 5*1024*1024) { statusEl.textContent='⚠️ '+file.name+' exceeds 5MB, skipped.'; continue; }
+    const storageRef = ref(storage, `properties/${Date.now()}_${file.name}`);
+    const task = uploadBytesResumable(storageRef, file);
+    await new Promise((res,rej) => {
+      task.on('state_changed',
+        snap => { const pct=Math.round((done/files.length)*100+((snap.bytesTransferred/snap.totalBytes)/files.length)*100); progressBar.style.width=pct+'%'; },
+        rej,
+        async () => {
+          const url = await getDownloadURL(task.snapshot.ref);
+          uploadedImageURLs.push(url);
+          // preview
+          const el = document.createElement('div'); el.className='img-prev-item';
+          el.innerHTML=`<img src="${url}"><button onclick="removeUploadedImg('${url}',this.parentElement)">✕</button>`;
+          previewEl.appendChild(el);
+          done++; progressBar.style.width=Math.round((done/files.length)*100)+'%';
+          res();
+        }
+      );
+    });
+  }
+  progressWrap.style.display='none';
+  statusEl.textContent = `✅ ${uploadedImageURLs.length} image(s) uploaded.`;
+};
+
+window.removeUploadedImg = (url, el) => {
+  uploadedImageURLs = uploadedImageURLs.filter(u=>u!==url);
+  el.remove();
+};
+
+// ── SUBMIT LISTING ────────────────────────────────────────────────────────────
+window.submitListing = async () => {
+  if(!currentUser) return showAuth();
+  const title = document.getElementById('f-title').value.trim();
+  const price = document.getElementById('f-price').value;
+  if(!title||!price) { const e=document.getElementById('err-msg'); e.textContent='❌ Title and Price are required.'; e.style.display='block'; return; }
+  const btn = document.getElementById('submit-btn');
+  btn.textContent='Submitting…'; btn.disabled=true;
+
+  // Get next property ID
+  const { setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+  const counterRef = doc(db,'meta','propCounter');
+  let propId = 1000;
+  try {
+    const cSnap = await getDoc(counterRef);
+    propId = cSnap.exists() ? (cSnap.data().current||999)+1 : 1000;
+    await setDoc(counterRef, { current: propId });
+  } catch(e) { propId = 1000 + Math.floor(Math.random()*9000); }
+
+  const data = {
+    propId,
+    title, price:parseFloat(price)||0,
+    location:document.getElementById('f-location').value.trim(),
+    type:document.getElementById('f-type').value,
+    status:document.getElementById('f-status').value,
+    area:parseFloat(document.getElementById('f-area').value)||0,
+    beds:parseInt(document.getElementById('f-beds').value)||0,
+    baths:parseInt(document.getElementById('f-baths').value)||0,
+    lat:document.getElementById('f-lat').value.trim(),
+    lng:document.getElementById('f-lng').value.trim(),
+    phone:document.getElementById('f-phone').value.trim(),
+    description:document.getElementById('f-desc').value.trim(),
+    image: uploadedImageURLs[0]||'',
+    images: uploadedImageURLs,
+    addedBy: currentUser.uid,
+    addedByEmail: currentUser.email,
+    createdAt: serverTimestamp()
+  };
+  try {
+    const docRef = await addDoc(collection(db,"properties"), data);
+    data.id = docRef.id; allProperties.unshift(data);
+    renderProps(allProperties);
+    document.getElementById('ok-msg').style.display='block';
+    document.getElementById('ok-msg').textContent = `✅ Property listed! Your Property ID is #${propId}`;
+    document.getElementById('err-msg').style.display='none';
+    uploadedImageURLs=[];
+    setTimeout(()=>{ document.getElementById('ok-msg').style.display='none'; renderAddForm(); },4000);
+  } catch(e) {
+    const errEl=document.getElementById('err-msg');
+    errEl.style.display='block';
+    errEl.textContent = e.code==='permission-denied'?'❌ Permission denied. Check Firestore rules.':'❌ '+e.message;
+  } finally { btn.textContent='Submit Listing'; btn.disabled=false; }
+};
+
+// ── ADMIN DASHBOARD ───────────────────────────────────────────────────────────
+window.renderAdmin = async () => {
+  const content = document.getElementById('admin-content');
+  if(!currentUser){ content.innerHTML=`<div class="access-denied"><h2>🔐 Sign In Required</h2><p>Please sign in to access the admin dashboard.</p><br><button class="nav-btn btn-dark" style="padding:12px 28px" onclick="showAuth()">Sign In</button></div>`; return; }
+  if(currentUser.email !== ADMIN_EMAIL){ content.innerHTML=`<div class="access-denied"><h2>⛔ Access Denied</h2><p>This area is restricted to administrators only.<br>Logged in as: <strong>${currentUser.email}</strong></p></div>`; return; }
+  content.innerHTML=`<div class="loading"><div class="spinner"></div><p>Loading dashboard…</p></div>`;
+  try {
+    const snap = await getDocs(query(collection(db,"properties"), orderBy("createdAt","desc")));
+    const props = snap.docs.map(d=>({id:d.id,...d.data()}));
+    const forSale  = props.filter(p=>p.status==='For Sale').length;
+    const forRent  = props.filter(p=>p.status==='For Rent').length;
+    const totalVal = props.filter(p=>p.status==='For Sale').reduce((s,p)=>s+(p.price||0),0);
+    const rentVal  = props.filter(p=>p.status==='For Rent').reduce((s,p)=>s+(p.price||0),0);
+
+    content.innerHTML = `
+      <div class="admin-toolbar">
+        <h2>⚙️ Admin Dashboard</h2>
+        <div class="admin-toolbar-btns">
+          <input class="search-admin" type="text" id="admin-search" placeholder="🔍 Search properties…" oninput="adminSearchFilter()">
+          <button class="atbtn atbtn-gold" onclick="exportCSV()">📥 Export CSV</button>
+          <button class="atbtn atbtn-red" onclick="deleteAllConfirm()">🗑 Delete All</button>
+        </div>
+      </div>
+
+      <div class="admin-card-grid">
+        <div class="acard"><div class="acard-n">${props.length}</div><div class="acard-l">Total Listings</div></div>
+        <div class="acard"><div class="acard-n">${forSale}</div><div class="acard-l">For Sale</div></div>
+        <div class="acard"><div class="acard-n">${forRent}</div><div class="acard-l">For Rent</div></div>
+        <div class="acard"><div class="acard-n">₹${(totalVal/10000000).toFixed(1)}Cr</div><div class="acard-l">Sale Portfolio</div></div>
+        <div class="acard"><div class="acard-n">₹${Number(rentVal).toLocaleString('en-IN')}</div><div class="acard-l">Monthly Rent Value</div></div>
+        <div class="acard"><div class="acard-n">${currentUser.displayName||'Admin'}</div><div class="acard-l">Logged in as</div></div>
+      </div>
+
+      <!-- Desktop Table -->
+      <div class="admin-table-wrap">
+        <h3>All Properties <span style="font-size:0.85rem;font-weight:400;color:var(--warm-gray)" id="admin-count">(${props.length} total)</span></h3>
+        <table id="admin-table">
+          <thead><tr>
+            <th>Prop ID</th><th>Image</th><th>Title</th><th>Location</th><th>Price</th><th>Type</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="admin-tbody">
+            ${props.map((p,i)=>`<tr data-id="${p.id}" data-title="${p.title.toLowerCase()}" data-loc="${p.location.toLowerCase()}">
+              <td><span style="font-weight:700;color:var(--gold);font-size:0.85rem">#${p.propId||'—'}</span></td>
+              <td><img class="td-img" src="${p.image||'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=60'}" alt="" onerror="this.src='https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=60'"></td>
+              <td><strong>${p.title}</strong><br><span style="font-size:0.78rem;color:var(--warm-gray)">${p.addedByEmail||'—'}</span></td>
+              <td>${p.location}</td>
+              <td><strong>₹${Number(p.price).toLocaleString('en-IN')}</strong>${p.status==='For Rent'?'<br><span style="font-size:0.75rem;color:var(--warm-gray)">/month</span>':''}</td>
+              <td>${p.type}</td>
+              <td><span class="status-badge ${p.status==='For Sale'?'sale':'rent'}">${p.status}</span></td>
+              <td style="white-space:nowrap">
+                <button class="edit-btn" onclick="adminToggleStatus('${p.id}','${p.status}',this)">🔄 Toggle</button>
+                <button class="edit-btn" onclick="adminView('${p.id}')">👁 View</button>
+                <button class="del-btn" onclick="adminDelete('${p.id}',this)">🗑</button>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Cards -->
+      <div id="admin-mobile-cards">
+        ${props.map((p,i)=>`
+        <div class="prop-mobile-card" data-id="${p.id}" data-title="${p.title.toLowerCase()}" data-loc="${p.location.toLowerCase()}">
+          <img src="${p.image||'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=70'}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=70'">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <span class="status-badge ${p.status==='For Sale'?'sale':'rent'}">${p.status}</span>
+            <span style="font-size:0.82rem;font-weight:700;color:var(--gold)">#${p.propId||'—'}</span>
+          </div>
+          <h4>${p.title}</h4>
+          <p>📍 ${p.location} · ${p.type}<br>💰 ₹${Number(p.price).toLocaleString('en-IN')}${p.status==='For Rent'?'/mo':''}</p>
+          <div class="card-actions">
+            <button class="edit-btn" style="flex:1" onclick="adminToggleStatus('${p.id}','${p.status}',this)">🔄 Toggle Status</button>
+            <button class="edit-btn" onclick="adminView('${p.id}')">👁</button>
+            <button class="del-btn" onclick="adminDelete('${p.id}',this)">🗑</button>
+          </div>
+        </div>`).join('')}
+      </div>`;
+
+    // store props for export
+    window._adminProps = props;
+  } catch(e) {
+    content.innerHTML=`<div class="access-denied"><h2>⚠️ Error</h2><p>${e.message}</p></div>`;
+  }
+};
+
+// Admin: search filter
+window.adminSearchFilter = () => {
+  const q = document.getElementById('admin-search').value.toLowerCase();
+  // desktop rows
+  document.querySelectorAll('#admin-tbody tr').forEach(row=>{
+    const match = row.dataset.title.includes(q)||row.dataset.loc.includes(q);
+    row.style.display = match?'':'none';
+  });
+  // mobile cards
+  document.querySelectorAll('#admin-mobile-cards .prop-mobile-card').forEach(card=>{
+    const match = card.dataset.title.includes(q)||card.dataset.loc.includes(q);
+    card.style.display = match?'block':'none';
+  });
+};
+
+// Admin: toggle sale/rent status
+window.adminToggleStatus = async (id, currentStatus, btn) => {
+  const newStatus = currentStatus==='For Sale'?'For Rent':'For Sale';
+  if(!confirm(`Change status to "${newStatus}"?`)) return;
+  btn.textContent='…'; btn.disabled=true;
+  try {
+    await updateDoc(doc(db,"properties",id), { status: newStatus });
+    const p = allProperties.find(x=>x.id===id);
+    if(p) p.status = newStatus;
+    renderProps(allProperties);
+    renderAdmin();
+  } catch(e) { alert('Error: '+e.message); btn.textContent='🔄 Toggle'; btn.disabled=false; }
+};
+
+// Admin: view property
+window.adminView = id => {
+  // load all if needed
+  if(!allProperties.find(x=>x.id===id)) loadProperties().then(()=>{ openPropModal(id); showPage('home'); });
+  else { openPropModal(id); showPage('home'); }
+};
+
+// Admin: delete
+window.adminDelete = async (id, btn) => {
+  if(!confirm('Delete this property? This cannot be undone.')) return;
+  btn.textContent='…'; btn.disabled=true;
+  try {
+    await deleteDoc(doc(db,"properties",id));
+    allProperties = allProperties.filter(p=>p.id!==id);
+    renderProps(allProperties);
+    renderAdmin();
+  } catch(e) { alert('Error: '+e.message); btn.textContent='🗑'; btn.disabled=false; }
+};
+
+// Admin: delete ALL
+window.deleteAllConfirm = async () => {
+  const confirm1 = confirm('⚠️ Delete ALL properties? This cannot be undone!');
+  if(!confirm1) return;
+  const confirm2 = prompt('Type DELETE to confirm:');
+  if(confirm2 !== 'DELETE') return;
+  try {
+    const snap = await getDocs(collection(db,"properties"));
+    for(const d of snap.docs) await deleteDoc(doc(db,"properties",d.id));
+    allProperties = [];
+    renderProps([]);
+    renderAdmin();
+  } catch(e) { alert('Error: '+e.message); }
+};
+
+// Admin: export CSV
+window.exportCSV = () => {
+  const props = window._adminProps || allProperties;
+  if(!props.length) return alert('No properties to export.');
+  const headers = ['Title','Location','Type','Status','Price','Beds','Baths','Area','Phone','Description'];
+  const rows = props.map(p=>[
+    `"${p.title}"`,`"${p.location}"`,p.type,p.status,p.price,p.beds,p.baths,p.area,`"${p.phone||''}"`,`"${(p.description||'').replace(/"/g,"'")}"`
+  ]);
+  const csv = [headers, ...rows].map(r=>r.join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'kerala_theeram_properties.csv';
+  a.click();
+};
+
+// ── OWNER EDIT / DELETE ───────────────────────────────────────────────────────
+let editingId = null;
+
+window.openEditModal = id => {
+  const p = allProperties.find(x=>x.id===id); if(!p) return;
+  editingId = id;
+  document.getElementById('e-title').value    = p.title||'';
+  document.getElementById('e-price').value    = p.price||'';
+  document.getElementById('e-location').value = p.location||'';
+  document.getElementById('e-type').value     = p.type||'House';
+  document.getElementById('e-status').value   = p.status||'For Sale';
+  document.getElementById('e-area').value     = p.area||'';
+  document.getElementById('e-beds').value     = p.beds||'';
+  document.getElementById('e-baths').value    = p.baths||'';
+  document.getElementById('e-phone').value    = p.phone||'';
+  document.getElementById('e-image').value    = p.image||'';
+  document.getElementById('e-desc').value     = p.description||'';
+  document.getElementById('e-ok-msg').style.display='none';
+  document.getElementById('e-err-msg').style.display='none';
+  document.getElementById('edit-overlay').classList.add('show');
+};
+
+window.closeEditModal = e => {
+  if(e.target.id==='edit-overlay') document.getElementById('edit-overlay').classList.remove('show');
+};
+
+window.saveEdit = async () => {
+  if(!editingId) return;
+  const btn = document.getElementById('e-save-btn');
+  btn.textContent='Saving…'; btn.disabled=true;
+  const updates = {
+    title:       document.getElementById('e-title').value.trim(),
+    price:       parseFloat(document.getElementById('e-price').value)||0,
+    location:    document.getElementById('e-location').value.trim(),
+    type:        document.getElementById('e-type').value,
+    status:      document.getElementById('e-status').value,
+    area:        parseFloat(document.getElementById('e-area').value)||0,
+    beds:        parseInt(document.getElementById('e-beds').value)||0,
+    baths:       parseInt(document.getElementById('e-baths').value)||0,
+    phone:       document.getElementById('e-phone').value.trim(),
+    image:       document.getElementById('e-image').value.trim(),
+    description: document.getElementById('e-desc').value.trim(),
+  };
+  try {
+    await updateDoc(doc(db,'properties',editingId), updates);
+    // update local array
+    const idx = allProperties.findIndex(x=>x.id===editingId);
+    if(idx>-1) allProperties[idx] = {...allProperties[idx],...updates};
+    renderProps(allProperties);
+    document.getElementById('e-ok-msg').style.display='block';
+    setTimeout(()=>{ document.getElementById('edit-overlay').classList.remove('show'); },1800);
+  } catch(e) {
+    const el = document.getElementById('e-err-msg');
+    el.textContent='❌ '+e.message; el.style.display='block';
+  } finally { btn.textContent='💾 Save Changes'; btn.disabled=false; }
+};
+
+window.ownerDelete = async (id, btn) => {
+  if(!confirm('Delete your property listing? This cannot be undone.')) return;
+  btn.textContent='…'; btn.disabled=true;
+  try {
+    await deleteDoc(doc(db,'properties',id));
+    allProperties = allProperties.filter(p=>p.id!==id);
+    renderProps(allProperties);
+  } catch(e) { alert('Error: '+e.message); btn.textContent='🗑 Delete'; btn.disabled=false; }
+};
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+loadProperties();
+</script>
+</body>
+</html>
