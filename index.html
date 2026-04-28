@@ -12,19 +12,19 @@
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.keralatheraam.com/">
+<meta property="og:url" content="https://www.keralatheram.com/">
 <meta property="og:title" content="Kerala Theeram — Premium Properties in God's Own Country">
 <meta property="og:description" content="Explore premium plots, villas, and homes for sale or rent across Kerala. Verified listings with photos, amenities, and map views.">
-<meta property="og:image" content="https://www.keralatheraam.com/og-image.jpg">
+<meta property="og:image" content="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1800&q=85">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="Kerala Theeram">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://www.keralatheraam.com/">
+<meta name="twitter:url" content="https://www.keralatheram.com/">
 <meta name="twitter:title" content="Kerala Theeram — Premium Properties in God's Own Country">
 <meta name="twitter:description" content="Find your dream property in Kerala. Premium plots, villas, and homes with verified listings and rich amenity details.">
-<meta name="twitter:image" content="https://www.keralatheraam.com/og-image.jpg">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1800&q=85">
 
 <!-- Geo Tags (Kerala, India) -->
 <meta name="geo.region" content="IN-KL">
@@ -1366,7 +1366,7 @@ footer p{font-size:0.85rem;}
   <div class="flogo">Kerala Theeram<span> കേരളതീരം</span></div>
   <p>Premium properties across God's Own Country</p>
   <div class="footer-contact">📞 +91 97440 12007</div>
-  <p style="font-size:0.88rem;color:rgba(255,255,255,0.45);margin-top:4px">✉️ contact@keralatheeram.in &nbsp;·&nbsp; 🌐 www.keralatheeram.in</p>
+  <p style="font-size:0.88rem;color:rgba(255,255,255,0.45);margin-top:4px">✉️ no1keralatheeram@gmail.com &nbsp;·&nbsp; 🌐 www.keralatheeram.in</p>
 
   <!-- Social Share Bar -->
   <div class="social-share-bar">
@@ -1397,7 +1397,12 @@ footer p{font-size:0.85rem;}
     </a>
   </div>
 
-  <p style="margin-top:16px;opacity:0.35;font-size:0.75rem">© 2026 Kerala Theeram. All rights reserved. Powered by Firebase.</p>
+  <p style="margin-top:16px;font-size:0.8rem;opacity:0.6;">
+    <button onclick="openTnC(event)" style="background:none;border:none;color:rgba(245,240,232,0.7);font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;text-decoration:underline;padding:0;">Terms &amp; Conditions</button>
+    &nbsp;·&nbsp;
+    <button onclick="openRefundPolicy(event)" style="background:none;border:none;color:rgba(245,240,232,0.7);font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;text-decoration:underline;padding:0;">Refund &amp; Cancellation Policy</button>
+  </p>
+  <p style="margin-top:10px;opacity:0.35;font-size:0.75rem">© 2026 Kerala Theeram. All rights reserved. Owned &amp; operated by <strong style="font-weight:600;">Leonard Aleyanoor Binu</strong>. Powered by Firebase.</p>
 </footer>
 
 <!-- ═══ PROPERTY DETAIL MODAL ═══ -->
@@ -1864,6 +1869,17 @@ footer p{font-size:0.85rem;}
       <div class="finput"><label>Email</label><input type="email" id="a-remail" placeholder="you@example.com"></div>
       <div class="finput"><label>Mobile Number</label><input type="tel" id="a-phone" placeholder="+91 00000 00000"></div>
       <div class="finput"><label>Password</label><input type="password" id="a-rpass" placeholder="Min 6 characters"></div>
+      <!-- Terms & Conditions checkbox -->
+      <div style="display:flex;align-items:flex-start;gap:10px;margin:10px 0 14px;">
+        <input type="checkbox" id="a-tnc" style="margin-top:3px;width:16px;height:16px;accent-color:var(--dark);cursor:pointer;flex-shrink:0;">
+        <label for="a-tnc" style="font-size:0.83rem;color:var(--warm-gray);line-height:1.5;cursor:pointer;">
+          I have read and agree to the
+          <button type="button" onclick="openTnC(event)" style="background:none;border:none;padding:0;color:var(--gold);font-size:0.83rem;font-family:'DM Sans',sans-serif;text-decoration:underline;cursor:pointer;font-weight:600;">Terms &amp; Conditions</button>
+          and
+          <button type="button" onclick="openTnC(event)" style="background:none;border:none;padding:0;color:var(--gold);font-size:0.83rem;font-family:'DM Sans',sans-serif;text-decoration:underline;cursor:pointer;font-weight:600;">Privacy Policy</button>
+          of Kerala Theeram.
+        </label>
+      </div>
       <button class="auth-submit" onclick="doRegister()">Create Account</button>
     </div>
     <div class="auth-divider">or</div>
@@ -1930,7 +1946,7 @@ const firebaseConfig = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── ADMIN EMAIL ───────────────────────────────────────────────────────────────
-const ADMIN_EMAIL = "gstcell.com@gmail.com";
+const ADMIN_EMAIL = "no1keralatheeram@gmail.com";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const app  = initializeApp(firebaseConfig);
@@ -2353,6 +2369,7 @@ window.doRegister = async () => {
   const pass=document.getElementById('a-rpass').value;
   if(!name||!email||!pass) return showAuthErr('Please fill in all fields.');
   if(pass.length<6) return showAuthErr('Password must be at least 6 characters.');
+  if(!document.getElementById('a-tnc')?.checked) return showAuthErr('Please accept the Terms & Conditions to continue.');
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     await updateProfile(cred.user, { displayName: name });
@@ -5989,6 +6006,188 @@ window.togglePwdVis = (inputId, btn) => {
   if(inp.type==='password'){ inp.type='text'; btn.textContent='🙈'; }
   else { inp.type='password'; btn.textContent='👁'; }
 };
+
+// ── TERMS & CONDITIONS ────────────────────────────────────────────────────────
+window.openTnC = (e) => {
+  if(e) e.stopPropagation();
+  document.getElementById('tnc-overlay').classList.add('show');
+};
+window.closeTnC = () => {
+  document.getElementById('tnc-overlay').classList.remove('show');
+};
+window.acceptTnC = () => {
+  const cb = document.getElementById('a-tnc');
+  if(cb) cb.checked = true;
+  closeTnC();
+};
 </script>
+
+<!-- ═══ TERMS & CONDITIONS MODAL ═══ -->
+<style>
+#tnc-overlay{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(15,35,24,0.65);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s;}
+#tnc-overlay.show{opacity:1;pointer-events:all;}
+.tnc-modal{background:var(--white);border-radius:20px;max-width:540px;width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 40px 100px rgba(15,35,24,0.30);animation:mIn .25s ease;}
+.tnc-header{padding:24px 28px 16px;border-bottom:1px solid rgba(15,35,24,0.08);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.tnc-header h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--dark);}
+.tnc-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--warm-gray);line-height:1;padding:4px 8px;border-radius:8px;transition:background .2s;}
+.tnc-close:hover{background:rgba(15,35,24,0.07);}
+.tnc-body{overflow-y:auto;padding:22px 28px;flex:1;}
+.tnc-body h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--dark);margin:18px 0 6px;}
+.tnc-body h4:first-child{margin-top:0;}
+.tnc-body p{font-size:0.86rem;color:var(--warm-gray);line-height:1.7;margin-bottom:8px;}
+.tnc-body ul{padding-left:18px;margin-bottom:8px;}
+.tnc-body ul li{font-size:0.86rem;color:var(--warm-gray);line-height:1.7;margin-bottom:4px;}
+.tnc-footer{padding:16px 28px 22px;border-top:1px solid rgba(15,35,24,0.08);display:flex;gap:10px;flex-shrink:0;}
+.tnc-footer button{flex:1;padding:11px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.tnc-btn-decline{background:rgba(15,35,24,0.06);color:var(--warm-gray);}
+.tnc-btn-decline:hover{background:rgba(15,35,24,0.12);}
+.tnc-btn-accept{background:var(--dark);color:var(--cream);}
+.tnc-btn-accept:hover{background:var(--gold);color:var(--dark);}
+</style>
+
+<div id="tnc-overlay" onclick="if(event.target===this)closeTnC()">
+  <div class="tnc-modal">
+    <div class="tnc-header">
+      <h3>📜 Terms &amp; Conditions</h3>
+      <button class="tnc-close" onclick="closeTnC()">✕</button>
+    </div>
+    <div class="tnc-body">
+      <p>Welcome to <strong>Kerala Theeram</strong>. By registering or using our platform, you agree to the following terms. Please read them carefully.</p>
+
+      <h4>1. Acceptance of Terms</h4>
+      <p>By creating an account or accessing Kerala Theeram, you confirm that you are at least 18 years of age and legally capable of entering into binding agreements. Your continued use of the platform constitutes acceptance of these terms.</p>
+
+      <h4>2. User Accounts</h4>
+      <ul>
+        <li>You are responsible for maintaining the confidentiality of your account credentials.</li>
+        <li>You agree to provide accurate, current, and complete information during registration.</li>
+        <li>You must notify us immediately of any unauthorised use of your account.</li>
+        <li>Kerala Theeram reserves the right to suspend or terminate accounts that violate these terms.</li>
+      </ul>
+
+      <h4>3. Property Listings</h4>
+      <ul>
+        <li>All listings must be genuine and accurate. Misleading or fraudulent listings are strictly prohibited.</li>
+        <li>You must have the legal authority to list any property you post on the platform.</li>
+        <li>Kerala Theeram acts only as a marketplace and is not a party to any transaction between buyers, sellers, or renters.</li>
+        <li>We reserve the right to remove any listing that violates our policies without prior notice.</li>
+      </ul>
+
+      <h4>4. Prohibited Activities</h4>
+      <p>Users must not engage in any of the following:</p>
+      <ul>
+        <li>Posting false, misleading, or duplicate property listings.</li>
+        <li>Harassing or contacting other users for purposes unrelated to property transactions.</li>
+        <li>Attempting to scrape, hack, or reverse-engineer any part of the platform.</li>
+        <li>Violating any applicable local, state, or national laws.</li>
+      </ul>
+
+      <h4>5. Privacy Policy</h4>
+      <p>We collect personal information including your name, email, and phone number solely to facilitate property transactions and improve your experience. Your data will never be sold to third parties. We use industry-standard security measures to protect your information. For details, please contact us at <strong>no1keralatheeram@gmail.com</strong>.</p>
+
+      <h4>6. Intellectual Property</h4>
+      <p>All content on Kerala Theeram — including logos, text, graphics, and software — is the intellectual property of Kerala Theeram. Unauthorised reproduction or distribution is prohibited.</p>
+
+      <h4>7. Limitation of Liability</h4>
+      <p>Kerala Theeram is not liable for any direct, indirect, incidental, or consequential damages arising from your use of the platform, including disputes between buyers and sellers. All property transactions are solely the responsibility of the parties involved.</p>
+
+      <h4>8. Amendments</h4>
+      <p>We may update these Terms &amp; Conditions from time to time. Continued use of the platform after changes are posted constitutes your acceptance of the revised terms.</p>
+
+      <h4>9. Refund &amp; Cancellation Policy</h4>
+      <p>Kerala Theeram is a property listing marketplace. The following applies to any platform subscription or paid listing service purchased through our platform:</p>
+      <ul>
+        <li><strong>Listing Fees:</strong> Paid listing fees are non-refundable once a property listing has been published and made live on the platform.</li>
+        <li><strong>Subscription Plans:</strong> Subscription fees are non-refundable for the current billing cycle. You may cancel your subscription at any time; cancellation takes effect at the end of the current billing period.</li>
+        <li><strong>Accidental Charges:</strong> If you believe you have been charged in error, please contact us within 7 days of the transaction at <strong>no1keralatheeram@gmail.com</strong>. We will investigate and, if the charge is confirmed to be erroneous, issue a full refund within 7–10 business days.</li>
+        <li><strong>Property Transactions:</strong> Kerala Theeram acts solely as a marketplace facilitator. Refunds or cancellations related to property purchases, rentals, or deposits are the sole responsibility of the parties involved in the transaction and are governed by their mutually agreed terms.</li>
+        <li><strong>Technical Issues:</strong> If a paid service was inaccessible due to a verified technical fault on our end, a pro-rated refund or service extension may be offered at our discretion.</li>
+        <li><strong>How to Request:</strong> To initiate a refund request, email <strong>no1keralatheeram@gmail.com</strong> with your registered email, transaction ID, and reason for the request.</li>
+      </ul>
+
+      <h4>10. Contact Us</h4>
+      <p>For any questions regarding these terms, please write to us at <strong>no1keralatheeram@gmail.com</strong> or visit our office in Thiruvananthapuram, Kerala, India.</p>
+
+      <p style="margin-top:16px;font-size:0.78rem;color:rgba(74,104,85,0.6);">Last updated: April 2025</p>
+    </div>
+    <div class="tnc-footer">
+      <button class="tnc-btn-decline" onclick="closeTnC()">Decline</button>
+      <button class="tnc-btn-accept" onclick="acceptTnC()">✓ I Accept</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ REFUND & CANCELLATION POLICY MODAL ═══ -->
+<div id="refund-overlay" onclick="if(event.target===this)closeRefundPolicy()" style="position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(15,35,24,0.65);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s;">
+  <div class="tnc-modal">
+    <div class="tnc-header">
+      <h3>💳 Refund &amp; Cancellation Policy</h3>
+      <button class="tnc-close" onclick="closeRefundPolicy()">✕</button>
+    </div>
+    <div class="tnc-body">
+      <p>At <strong>Kerala Theeram</strong>, we strive to be transparent about our refund and cancellation terms. Please read this policy carefully before making any purchase on our platform.</p>
+
+      <h4>1. Scope of This Policy</h4>
+      <p>This policy applies to all paid services offered directly by Kerala Theeram, including property listing fees and subscription plans. It does not govern the terms of individual property transactions between buyers, sellers, or renters.</p>
+
+      <h4>2. Listing Fees</h4>
+      <ul>
+        <li>Listing fees are charged at the time of publishing a property on the platform.</li>
+        <li>Once a listing is live, the listing fee is <strong>non-refundable</strong>, regardless of whether the property is sold, rented, or taken off-market.</li>
+        <li>If a listing is rejected due to policy violations, any applicable fee will be reviewed on a case-by-case basis.</li>
+      </ul>
+
+      <h4>3. Subscription Plans</h4>
+      <ul>
+        <li>All subscription fees are billed in advance on a monthly or annual basis.</li>
+        <li>Subscriptions are <strong>non-refundable</strong> for the current billing cycle.</li>
+        <li>You may cancel your subscription at any time from your account settings. Access to premium features will continue until the end of the paid period.</li>
+        <li>Downgrading or cancelling will not result in a partial refund for unused days.</li>
+      </ul>
+
+      <h4>4. Accidental or Erroneous Charges</h4>
+      <p>If you believe you have been charged in error, you must contact us within <strong>7 calendar days</strong> of the transaction date. Requests made after this window will not be eligible for a refund. To raise a dispute, email <strong>no1keralatheeram@gmail.com</strong> with:</p>
+      <ul>
+        <li>Your registered email address</li>
+        <li>Transaction ID or payment reference number</li>
+        <li>A brief description of the issue</li>
+      </ul>
+      <p>Upon verification, approved refunds will be credited to the original payment method within <strong>7–10 business days</strong>.</p>
+
+      <h4>5. Property Transactions</h4>
+      <p>Kerala Theeram is a neutral marketplace facilitator and is <strong>not a party</strong> to any property transaction. Refunds, advance payments, token amounts, or deposits related to property deals are entirely between the buyer/tenant and the seller/landlord. Kerala Theeram bears no liability for such transactions.</p>
+
+      <h4>6. Technical Downtime</h4>
+      <p>In the event of verified technical downtime or service unavailability caused solely by Kerala Theeram's infrastructure, we may, at our sole discretion, offer a pro-rated refund or extend the service period. Downtime caused by third-party services, user devices, or internet connectivity is excluded.</p>
+
+      <h4>7. How to Request a Refund</h4>
+      <p>Send your refund request to <strong>no1keralatheeram@gmail.com</strong> with the subject line <em>"Refund Request – [Your Registered Email]"</em>. Our team will respond within 3 business days.</p>
+
+      <h4>8. Changes to This Policy</h4>
+      <p>Kerala Theeram reserves the right to modify this Refund &amp; Cancellation Policy at any time. Changes will be posted on this page and are effective immediately upon publication.</p>
+
+      <h4>9. Contact</h4>
+      <p>For billing queries, write to <strong>no1keralatheeram@gmail.com</strong>. For legal inquiries, contact <strong>no1keralatheeram@gmail.com</strong>.</p>
+
+      <p style="margin-top:16px;font-size:0.78rem;color:rgba(74,104,85,0.6);">Last updated: April 2025</p>
+    </div>
+    <div class="tnc-footer">
+      <button class="tnc-btn-decline" onclick="closeRefundPolicy()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+window.openRefundPolicy = (e) => {
+  if(e) e.stopPropagation();
+  document.getElementById('refund-overlay').style.opacity = '1';
+  document.getElementById('refund-overlay').style.pointerEvents = 'all';
+};
+window.closeRefundPolicy = () => {
+  document.getElementById('refund-overlay').style.opacity = '0';
+  document.getElementById('refund-overlay').style.pointerEvents = 'none';
+};
+</script>
+
 </body>
 </html>
