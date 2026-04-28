@@ -676,6 +676,11 @@ footer .flogo span{font-family:'Noto Sans Malayalam',sans-serif;font-size:1.2rem
 .auth-divider::before,.auth-divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:rgba(26,18,8,0.10);}
 .auth-divider::before{left:0;}
 .auth-divider::after{right:0;}
+.forgot-link{display:block;text-align:right;font-size:0.8rem;color:var(--gold);font-weight:500;cursor:pointer;margin-top:-8px;margin-bottom:16px;border:none;background:none;font-family:'DM Sans',sans-serif;padding:0;transition:color .2s;}
+.forgot-link:hover{color:var(--dark);}
+.auth-success{color:var(--green);font-size:0.85rem;margin-top:10px;display:none;padding:10px 14px;background:rgba(39,174,96,0.09);border-radius:8px;border:1px solid rgba(39,174,96,0.2);}
+.back-to-login{display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--warm-gray);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;padding:0 0 18px 0;transition:color .2s;}
+.back-to-login:hover{color:var(--gold);}
 
 /* ── ADD LISTING ── */
 .add-section{padding:0 48px 80px;}
@@ -1836,14 +1841,23 @@ footer p{font-size:0.85rem;}
   <div class="auth-modal">
     <h2>Welcome to Kerala Theeram</h2>
     <p>Sign in to list properties and save favorites</p>
-    <div class="auth-tabs">
+    <div class="auth-tabs" id="auth-tabs">
       <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
       <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Register</button>
     </div>
     <div id="auth-login-form">
       <div class="finput"><label>Email</label><input type="email" id="a-email" placeholder="you@example.com"></div>
       <div class="finput"><label>Password</label><input type="password" id="a-pass" placeholder="••••••••"></div>
+      <button class="forgot-link" onclick="showForgotPassword()">Forgot password?</button>
       <button class="auth-submit" onclick="doLogin()">Sign In</button>
+    </div>
+    <!-- Forgot Password Panel -->
+    <div id="auth-forgot-form" style="display:none">
+      <button class="back-to-login" onclick="hideForgotPassword()">← Back to Sign In</button>
+      <div class="finput"><label>Email</label><input type="email" id="a-forgot-email" placeholder="you@example.com"></div>
+      <button class="auth-submit" onclick="doForgotPassword()">Send Reset Link</button>
+      <div class="auth-success" id="forgot-success">✅ Reset link sent! Check your inbox.</div>
+      <div class="auth-err" id="forgot-err"></div>
     </div>
     <div id="auth-reg-form" style="display:none">
       <div class="finput"><label>Full Name</label><input type="text" id="a-name" placeholder="Your name"></div>
@@ -1861,6 +1875,33 @@ footer p{font-size:0.85rem;}
   </div>
 </div>
 
+<!-- ═══ RESET PASSWORD MODAL ═══ -->
+<div class="overlay" id="reset-pwd-overlay">
+  <div class="auth-modal">
+    <h2>Set New Password</h2>
+    <p>Enter a new password for your Kerala Theeram account</p>
+    <div id="reset-pwd-form">
+      <div class="finput">
+        <label>New Password</label>
+        <div style="position:relative;">
+          <input type="password" id="rp-pass" placeholder="Min 6 characters" style="padding-right:42px;">
+          <button onclick="togglePwdVis('rp-pass',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:var(--warm-gray);">👁</button>
+        </div>
+      </div>
+      <div class="finput">
+        <label>Confirm Password</label>
+        <div style="position:relative;">
+          <input type="password" id="rp-pass2" placeholder="Re-enter password" style="padding-right:42px;">
+          <button onclick="togglePwdVis('rp-pass2',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:var(--warm-gray);">👁</button>
+        </div>
+      </div>
+      <button class="auth-submit" onclick="doConfirmPasswordReset()">Update Password</button>
+      <div class="auth-success" id="reset-pwd-success" style="display:none">✅ Password updated! You can now sign in.</div>
+      <div class="auth-err" id="reset-pwd-err" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ FIREBASE ═══ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -1870,7 +1911,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import {
   getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-  signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile
+  signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile,
+  sendPasswordResetEmail, confirmPasswordReset, verifyPasswordResetCode
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   getStorage, ref, uploadBytesResumable, getDownloadURL
@@ -2071,6 +2113,30 @@ onAuthStateChanged(auth, user => {
   renderAddForm();
   if(document.getElementById('page-admin').classList.contains('active')) renderAdmin();
   if(document.getElementById('page-mylistings').classList.contains('active')) { renderMyListings(); if(currentUser) renderGrievancePanel(); }
+
+  // ── Handle Firebase email action links (resetPassword) ──────────────────────
+  // Only run once on the first auth state resolution
+  if(!window._firebaseActionHandled) {
+    window._firebaseActionHandled = true;
+    const params  = new URLSearchParams(window.location.search);
+    const mode    = params.get('mode');
+    const oobCode = params.get('oobCode');
+    if(mode === 'resetPassword' && oobCode) {
+      // Clean the URL immediately so refresh doesn't re-trigger
+      window.history.replaceState({}, document.title, window.location.pathname);
+      verifyPasswordResetCode(auth, oobCode)
+        .then(() => {
+          window._resetOobCode = oobCode;
+          // Make sure auth modal is hidden, show reset modal
+          document.getElementById('auth-overlay').classList.remove('show');
+          document.getElementById('reset-pwd-overlay').classList.add('show');
+        })
+        .catch(err => {
+          console.error('verifyPasswordResetCode failed:', err);
+          alert('This password reset link has expired or has already been used.\n\nPlease request a new one.');
+        });
+    }
+  }
 });
 
 // ── PROFILE MENU ──────────────────────────────────────────────────────────────
@@ -2217,8 +2283,9 @@ window.submitChangePassword = async () => {
 
 // ── AUTH FUNCTIONS ────────────────────────────────────────────────────────────
 window.showAuth = () => { document.getElementById('auth-overlay').classList.add('show') };
-window.closeAuthModal = e => { if(e.target.id==='auth-overlay'){ document.getElementById('auth-overlay').classList.remove('show'); checkModalsClosed(); } };
+window.closeAuthModal = e => { if(e.target.id==='auth-overlay'){ document.getElementById('auth-overlay').classList.remove('show'); checkModalsClosed(); hideForgotPassword(); } };
 window.switchTab = tab => {
+  hideForgotPassword();
   document.getElementById('auth-login-form').style.display = tab==='login'?'block':'none';
   document.getElementById('auth-reg-form').style.display   = tab==='register'?'block':'none';
   document.getElementById('tab-login').classList.toggle('active', tab==='login');
@@ -2226,6 +2293,48 @@ window.switchTab = tab => {
   document.getElementById('auth-err').style.display='none';
 };
 function showAuthErr(msg) { const e=document.getElementById('auth-err'); e.textContent=msg; e.style.display='block'; }
+
+window.showForgotPassword = () => {
+  document.getElementById('auth-login-form').style.display='none';
+  document.getElementById('auth-forgot-form').style.display='block';
+  document.getElementById('auth-tabs').style.display='none';
+  const fp=document.getElementById('forgot-success'); fp.style.display='none';
+  const fe=document.getElementById('forgot-err'); fe.style.display='none';
+  const em=document.getElementById('a-email').value.trim();
+  if(em) document.getElementById('a-forgot-email').value=em;
+};
+window.hideForgotPassword = () => {
+  const ff=document.getElementById('auth-forgot-form'); if(ff) ff.style.display='none';
+  const lf=document.getElementById('auth-login-form'); if(lf) lf.style.display='block';
+  const tabs=document.getElementById('auth-tabs'); if(tabs) tabs.style.display='flex';
+};
+window.doForgotPassword = async () => {
+  const email=document.getElementById('a-forgot-email').value.trim();
+  const successEl=document.getElementById('forgot-success');
+  const errEl=document.getElementById('forgot-err');
+  const btn=document.querySelector('#auth-forgot-form .auth-submit');
+  successEl.style.display='none'; errEl.style.display='none';
+  if(!email){ errEl.textContent='Please enter your email address.'; errEl.style.display='block'; return; }
+  // Basic email format check
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ errEl.textContent='Please enter a valid email address.'; errEl.style.display='block'; return; }
+  btn.textContent='Checking…'; btn.disabled=true;
+  try {
+    // Check Firestore users collection first — only Email-registered accounts can reset via email
+    const usersSnap = await getDocs(query(collection(db,'users'), where('email','==',email), where('provider','==','Email')));
+    if(usersSnap.empty){
+      errEl.textContent='No registered account found with this email address.';
+      errEl.style.display='block';
+      btn.textContent='Send Reset Link'; btn.disabled=false;
+      return;
+    }
+    await sendPasswordResetEmail(auth, email);
+    successEl.style.display='block';
+    document.getElementById('a-forgot-email').value='';
+  } catch(e) {
+    errEl.textContent=e.message;
+    errEl.style.display='block';
+  } finally { btn.textContent='Send Reset Link'; btn.disabled=false; }
+};
 
 window.doLogin = async () => {
   const email=document.getElementById('a-email').value.trim();
@@ -5838,6 +5947,48 @@ window.exportUsersCSV = () => {
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 loadProperties();
+
+window.doConfirmPasswordReset = async () => {
+  const pass  = document.getElementById('rp-pass').value;
+  const pass2 = document.getElementById('rp-pass2').value;
+  const errEl = document.getElementById('reset-pwd-err');
+  const okEl  = document.getElementById('reset-pwd-success');
+  const btn   = document.querySelector('#reset-pwd-form .auth-submit');
+  errEl.style.display='none'; okEl.style.display='none';
+  if(!pass || !pass2){ errEl.textContent='Please fill in both fields.'; errEl.style.display='block'; return; }
+  if(pass.length < 6){ errEl.textContent='Password must be at least 6 characters.'; errEl.style.display='block'; return; }
+  if(pass !== pass2){ errEl.textContent='Passwords do not match.'; errEl.style.display='block'; return; }
+  if(!window._resetOobCode){ errEl.textContent='Invalid or expired reset link.'; errEl.style.display='block'; return; }
+  btn.textContent='Updating…'; btn.disabled=true;
+  try {
+    await confirmPasswordReset(auth, window._resetOobCode, pass);
+    okEl.style.display='block';
+    btn.style.display='none';
+    document.getElementById('rp-pass').value='';
+    document.getElementById('rp-pass2').value='';
+    window._resetOobCode = null;
+    // Auto-close after 2.5s and open Sign In
+    setTimeout(() => {
+      document.getElementById('reset-pwd-overlay').classList.remove('show');
+      btn.style.display='block'; btn.textContent='Update Password'; btn.disabled=false;
+      okEl.style.display='none';
+      window.showAuth();
+    }, 2500);
+  } catch(e) {
+    const msg = e.code==='auth/expired-action-code' ? 'This reset link has expired. Please request a new one.'
+              : e.code==='auth/invalid-action-code' ? 'This reset link is invalid or already used.'
+              : e.code==='auth/weak-password'        ? 'Password is too weak. Use at least 6 characters.'
+              : e.message;
+    errEl.textContent=msg; errEl.style.display='block';
+    btn.textContent='Update Password'; btn.disabled=false;
+  }
+};
+
+window.togglePwdVis = (inputId, btn) => {
+  const inp = document.getElementById(inputId);
+  if(inp.type==='password'){ inp.type='text'; btn.textContent='🙈'; }
+  else { inp.type='password'; btn.textContent='👁'; }
+};
 </script>
 </body>
 </html>
