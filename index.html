@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <!-- Primary Meta Tags -->
 <meta name="title" content="Kerala Theeram — Premium Properties in God's Own Country">
 <meta name="description" content="Discover premium plots, villas, houses, and land for sale or rent across Kerala. Browse verified listings with detailed amenities, photos, and location maps. Your trusted real estate partner in God's Own Country.">
@@ -194,8 +193,8 @@ footer .flogo span{font-family:'Noto Sans Malayalam',sans-serif;font-size:1.2rem
   border-radius:6px;padding:3px 10px;display:inline-block;margin-bottom:8px;}
 
 /* ── PHOTO SLIDER ── */
-.photo-slider{position:relative;height:215px;overflow:hidden;background:#e8e0d0;cursor:pointer;}
-.photo-slider .slide{position:absolute;inset:0;opacity:0;transition:opacity .35s;}
+.photo-slider{position:relative;height:215px;overflow:visible;background:#e8e0d0;cursor:pointer;}
+.photo-slider .slide{position:absolute;inset:0;opacity:0;transition:opacity .35s;overflow:hidden;border-radius:0;}
 .photo-slider .slide.active{opacity:1;}
 .photo-slider .slide img{width:100%;height:100%;object-fit:cover;}
 .slider-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.85);border:none;
@@ -214,6 +213,25 @@ footer .flogo span{font-family:'Noto Sans Malayalam',sans-serif;font-size:1.2rem
   display:flex;gap:5px;z-index:3;}
 .sdot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.5);transition:background .2s;cursor:pointer;}
 .sdot.active{background:#fff;}
+/* ── WATERMARK ── */
+.wm-overlay{
+  position:absolute;inset:0;z-index:5;
+  pointer-events:none;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:10px 12px;
+}
+.wm-text{
+  font-family:'DM Sans',sans-serif;
+  font-size:1rem; font-weight:700;
+  color:rgba(255,255,255,0.60);
+  text-shadow:none;
+  letter-spacing:0.3px;
+  line-height:1.5;
+  text-align:center;
+
+}
+.mimg .wm-overlay{padding:14px 16px;}
+.mimg .wm-text{font-size:1rem;}
 /* YouTube slide */
 .photo-slider .slide.yt-slide iframe,.mimg .slide.yt-slide iframe{width:100%;height:100%;border:none;}
 .yt-badge{position:absolute;top:8px;left:8px;background:rgba(255,0,0,0.85);color:#fff;
@@ -366,11 +384,24 @@ footer .flogo span{font-family:'Noto Sans Malayalam',sans-serif;font-size:1.2rem
 .restore-btn:hover{background:#2980b9;color:#fff;}
 .reject-btn{background:rgba(192,57,43,0.1);color:var(--red);border:none;padding:5px 12px;border-radius:6px;font-size:0.8rem;cursor:pointer;transition:all .2s;font-weight:600;}
 .reject-btn:hover{background:var(--red);color:#fff;}
-.admin-tabs{display:flex;gap:0;margin-bottom:24px;border-radius:12px;overflow:hidden;border:1.5px solid rgba(15,35,24,0.10);width:fit-content;}
-.admin-tab-btn{padding:10px 24px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all .2s;color:var(--warm-gray);}
+.admin-tabs{display:flex;flex-wrap:wrap;gap:0;margin-bottom:24px;border-radius:12px;overflow:hidden;border:1.5px solid rgba(15,35,24,0.10);width:fit-content;max-width:100%;}
+.admin-tab-btn{padding:10px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;cursor:pointer;transition:all .2s;color:var(--warm-gray);border-right:1px solid rgba(15,35,24,0.07);}
+.admin-tab-btn:last-child{border-right:none;}
 .admin-tab-btn.active{background:var(--dark);color:var(--cream);}
 .admin-tab-btn.pending{color:#a04000;}
 .admin-tab-btn.pending.active{background:rgba(230,126,34,0.85);color:#fff;}
+.atab-count{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:20px;height:20px;padding:0 5px;
+  background:rgba(15,35,24,0.12);
+  border-radius:50px;
+  font-size:0.72rem;font-weight:700;
+  margin-left:5px;vertical-align:middle;
+  line-height:1;
+}
+.admin-tab-btn.active .atab-count{background:rgba(255,255,255,0.22);color:inherit;}
+.admin-tab-btn.pending .atab-count{background:rgba(230,126,34,0.15);color:#a04000;}
+.admin-tab-btn.pending.active .atab-count{background:rgba(255,255,255,0.25);color:#fff;}
 .pending-badge{background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:0.68rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;margin-left:6px;}
 .sold-badge{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.45);
   display:flex;align-items:center;justify-content:center;z-index:3;}
@@ -411,10 +442,33 @@ footer .flogo span{font-family:'Noto Sans Malayalam',sans-serif;font-size:1.2rem
 .cbadge{position:absolute;top:12px;left:12px;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:600;letter-spacing:0.5px;z-index:6;}
 .cbadge.sale{background:var(--gold);color:var(--dark);}
 .cbadge.rent{background:var(--dark);color:var(--cream);}
+/* ── PREMIUM / FEATURED BADGE ON CARD PHOTO ── */
+.premium-badge-card{
+  position:absolute;bottom:-13px;left:14px;z-index:7;
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--gold);
+  border-radius:6px;
+  padding:5px 12px 5px 9px;
+  pointer-events:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.18);
+}
+.pb-star{
+  font-size:0.85rem;
+  color:#fff5b0;
+  line-height:1;
+}
+.pb-label{
+  font-family:'DM Sans',sans-serif;
+  font-size:0.68rem;font-weight:800;
+  letter-spacing:1px;
+  color:#0F2318;
+  text-transform:uppercase;
+  line-height:1;
+}
 .cfav{position:absolute;top:12px;right:12px;width:32px;height:32px;background:rgba(253,251,247,0.92);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all .2s;z-index:6;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
 .cfav:hover,.cfav.liked{background:var(--gold);transform:scale(1.1);}
 .cfav.liked{color:var(--red);}
-.cbody{padding:20px 22px 22px;}
+.cbody{padding:22px 22px 22px;}.premium-card .cbody{padding-top:26px;}
 .cprice{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:4px;}
 .cprice span{font-size:0.82rem;font-weight:400;color:var(--warm-gray);font-family:'DM Sans',serif;}
 .ctitle{font-size:0.97rem;font-weight:500;margin-bottom:5px;}
@@ -1211,8 +1265,12 @@ footer p{font-size:0.85rem;}
             Search
           </button>
         </div>
-        <!-- Post Property button below search -->
-        <div style="margin-top:14px;display:flex;justify-content:flex-end;">
+        <!-- Post Property button + Wishlist filter button below search -->
+        <div style="margin-top:14px;display:flex;justify-content:flex-end;align-items:center;gap:10px;">
+          <button id="wishlist-filter-btn" onclick="toggleWishlistFilter()" title="Show saved properties"
+            style="width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.45);background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:all .25s;flex-shrink:0;color:#fff;">
+            ♡
+          </button>
           <button class="nav-btn" onclick="showPage('add')" style="padding:11px 28px;font-size:0.92rem;background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.45);border-radius:50px;backdrop-filter:blur(8px);cursor:pointer;transition:all .2s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--dark)';this.style.borderColor='var(--gold)'" onmouseout="this.style.background='rgba(255,255,255,0.15)';this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.45)'">
             ➕ Post Your Property
           </button>
@@ -1907,7 +1965,7 @@ async function seedIfEmpty(colRef) {
     let counter = 1000;
     const { setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
     for(const p of seedData) {
-      await addDoc(colRef, { ...p, propId: counter, createdAt: serverTimestamp(), addedBy:"seed" });
+      await addDoc(colRef, { ...p, propId: counter, createdAt: serverTimestamp(), addedBy:"seed", approval:"approved" });
       counter++;
     }
     // save counter state
@@ -2523,7 +2581,6 @@ function renderHomeGrid() {
         <div class="slide active"><img src="${p.image||'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80'}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80'"></div>
       </div>
       <div class="cbody">
-        ${isPremium?`<div class="premium-badge-card">⭐ Premium</div>`:''}
         ${p.propId?`<div class="cpid">ID: ${formatPropId(p.propId,p.location,p.status)}</div>`:''}
         <div class="cprice">${p.status==='For Rent'?'₹'+Number(p.price).toLocaleString('en-IN')+'<span>/mo</span>':'₹'+Number(p.price).toLocaleString('en-IN')}</div>
         <div class="ctitle">${p.title}</div>
@@ -2604,8 +2661,8 @@ function buildSliderInto(sliderId, imgs, p, isModal) {
   const allSlides = [...imgs];
   const ytId = p.youtube ? getYouTubeId(p.youtube) : null;
 
-  // Watermark overlay
-  const wmHTML = `<div class="wm-overlay"><div class="wm-text">www.keralatheeram.com<br>Keralatheeram since 2020</div></div>`;
+  // Watermark overlay — shown in popup modal only
+  const wmHTML = isModal ? `<div class="wm-overlay"><div class="wm-text">www.keralatheeram.in<br>Real Estate since 2015</div></div>` : '';
 
   let slidesHTML = allSlides.map((src,i)=>`
     <div class="slide ${i===0?'active':''}">
@@ -2643,11 +2700,16 @@ function buildSliderInto(sliderId, imgs, p, isModal) {
 
   const closeHTML = isModal ? `<button class="mclose" onclick="document.getElementById('prop-modal').classList.remove('show');checkModalsClosed()">✕</button>` : '';
 
+  // Featured badge on card photo (not modal)
+  const featuredHTML = (!isModal && (p.plan||'').includes('premium'))
+    ? `<div class="premium-badge-card"><span class="pb-star">★</span><span class="pb-label">PREMIUM</span></div>`
+    : '';
+
   if(isModal) {
     // For modal: wrap slides in inner overflow:hidden div so arrows aren't clipped
     container.innerHTML = `<div class="mimg-slides">${slidesHTML}</div>` + arrowsHTML + dotsHTML + countHTML + badgeHTML + favHTML + closeHTML;
   } else {
-    container.innerHTML = slidesHTML + arrowsHTML + dotsHTML + countHTML + badgeHTML + favHTML + closeHTML;
+    container.innerHTML = slidesHTML + arrowsHTML + dotsHTML + countHTML + badgeHTML + favHTML + closeHTML + featuredHTML;
   }
   container.dataset.current='0';
   container.dataset.total=String(total);
@@ -3326,16 +3388,16 @@ window.renderMyListings = async () => {
     const myProps = snap.docs.map(d=>({id:d.id,...d.data()}))
       .sort((a,b)=> (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
     // also update local cache (only approved)
-    myProps.filter(p=>!p.approval||p.approval==='approved').forEach(p => {
+    myProps.filter(p=>p.approval==='approved').forEach(p => {
       if(!allProperties.find(x=>x.id===p.id)) allProperties.push(p);
     });
 
     // Stats bar
     const pending   = myProps.filter(p=>p.approval==='pending').length;
     const rejected  = myProps.filter(p=>p.approval==='rejected').length;
-    const approved  = myProps.filter(p=>!p.approval||p.approval==='approved').length;
-    const forSale   = myProps.filter(p=>(!p.approval||p.approval==='approved')&&!p.soldOut&&p.status==='For Sale').length;
-    const forRent   = myProps.filter(p=>(!p.approval||p.approval==='approved')&&!p.soldOut&&p.status==='For Rent').length;
+    const approved  = myProps.filter(p=>p.approval==='approved').length;
+    const forSale   = myProps.filter(p=>p.approval==='approved'&&!p.soldOut&&p.status==='For Sale').length;
+    const forRent   = myProps.filter(p=>p.approval==='approved'&&!p.soldOut&&p.status==='For Rent').length;
     const soldCount = myProps.filter(p=>p.soldOut).length;
     stats.innerHTML = `
       <div class="acard" style="min-width:120px"><div class="acard-n">${myProps.length}</div><div class="acard-l">Total Posted</div></div>
@@ -3546,7 +3608,7 @@ window.renderAdmin = async (tab) => {
 
     const pending  = allProps.filter(p=>p.approval==='pending' && !p.userDeleted);
     const rejected = allProps.filter(p=>p.approval==='rejected' && !p.userDeleted);
-    const approved = allProps.filter(p=>(!p.approval||p.approval==='approved') && !p.userDeleted && !p.soldOut);
+    const approved = allProps.filter(p=>p.approval==='approved' && !p.userDeleted && !p.soldOut);
     const soldItems = allProps.filter(p=>p.soldOut && !p.userDeleted);
     const deletedItems = allProps.filter(p=>p.userDeleted||p.approval==='deleted');
 
@@ -3568,35 +3630,18 @@ window.renderAdmin = async (tab) => {
         </div>
       </div>
 
-      <div class="admin-card-grid">
-        <div class="acard"><div class="acard-n">${allProps.length}</div><div class="acard-l">Total Listings</div></div>
-        <div class="acard"><div class="acard-n" style="color:var(--green)">${approved.length}</div><div class="acard-l">Published</div></div>
-        <div class="acard"><div class="acard-n" style="color:#e67e22">${pending.length}</div><div class="acard-l">Pending Review</div></div>
-        <div class="acard"><div class="acard-n">${forSale}</div><div class="acard-l">For Sale</div></div>
-        <div class="acard"><div class="acard-n">₹${(totalVal/10000000).toFixed(1)}Cr</div><div class="acard-l">Portfolio Value</div></div>
-        <div class="acard" id="admin-griev-card" style="cursor:pointer;border:2px solid transparent;transition:all .35s ease;background:var(--white);" onclick="renderAdminGrievances()">
-          <div class="acard-n" id="admin-griev-count" style="font-size:1.8rem;">—</div>
-          <div class="acard-l" id="admin-griev-label">💬 Grievances</div>
-          <div id="admin-griev-hint" style="font-size:0.68rem;margin-top:4px;font-weight:600;opacity:0.7;">Click to view →</div>
-        </div>
-        <div class="acard" id="admin-users-card" style="cursor:pointer;border:2px solid transparent;transition:all .35s ease;background:var(--white);" onclick="renderAdminUsers()">
-          <div class="acard-n" id="admin-users-count" style="font-size:1.8rem;">—</div>
-          <div class="acard-l">👥 Registered Users</div>
-          <div style="font-size:0.68rem;margin-top:4px;font-weight:600;opacity:0.7;">Click to view →</div>
-        </div>
-        <div class="acard"><div class="acard-n">${currentUser.displayName||'Admin'}</div><div class="acard-l">Logged in as</div></div>
-      </div>
-
       <!-- Tabs + Search in same row -->
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
         <div class="admin-tabs" style="margin-bottom:0;">
-          <button class="admin-tab-btn pending ${activeTab==='pending'?'active':''}" onclick="renderAdmin('pending')">⏳ Pending${pendingBadge}</button>
-          <button class="admin-tab-btn ${activeTab==='approved'?'active':''}" onclick="renderAdmin('approved')">✅ Published</button>
-          <button class="admin-tab-btn ${activeTab==='solddeleted'?'active':''}" style="${activeTab==='solddeleted'?'':''}color:${activeTab==='solddeleted'?'':'#884400'}" onclick="renderAdmin('solddeleted')">🗑 Deleted &amp; Sold${(soldItems.length+deletedItems.length)>0?'<span class="pending-badge" style="background:#884400">'+(soldItems.length+deletedItems.length)+'</span>':''}</button>
-          <button class="admin-tab-btn ${activeTab==='rejected'?'active':''}" onclick="renderAdmin('rejected')">❌ Rejected</button>
-          <button class="admin-tab-btn ${activeTab==='all'?'active':''}" onclick="renderAdmin('all')">📋 All</button>
-          <button class="admin-tab-btn" onclick="renderAdminUsers()" style="color:#1a5c38;background:rgba(46,125,82,0.07);">👥 Users</button>
+          <button class="admin-tab-btn pending ${activeTab==='pending'?'active':''}" onclick="renderAdmin('pending')">⏳ Pending <span class="atab-count">${pending.length}</span></button>
+          <button class="admin-tab-btn ${activeTab==='approved'?'active':''}" onclick="renderAdmin('approved')">✅ Published <span class="atab-count">${approved.length}</span></button>
+          <button class="admin-tab-btn ${activeTab==='solddeleted'?'active':''}" onclick="renderAdmin('solddeleted')">🗑 Deleted &amp; Sold <span class="atab-count">${soldItems.length+deletedItems.length}</span></button>
+          <button class="admin-tab-btn ${activeTab==='rejected'?'active':''}" onclick="renderAdmin('rejected')">❌ Rejected <span class="atab-count">${rejected.length}</span></button>
+          <button class="admin-tab-btn ${activeTab==='all'?'active':''}" onclick="renderAdmin('all')">📋 All <span class="atab-count">${allProps.length}</span></button>
+          <button class="admin-tab-btn" onclick="renderAdminGrievances()" id="admin-griev-tab" style="color:#1a6e3c;background:rgba(39,174,96,0.07);">✅ Resolved <span class="atab-count" id="admin-griev-tab-count" style="background:rgba(39,174,96,0.15);color:#1a6e3c;">—</span></button>
+          <button class="admin-tab-btn" onclick="renderAdminUsers()" id="admin-users-tab" style="color:#1a5c38;background:rgba(46,125,82,0.07);">👥 Users <span class="atab-count" id="admin-users-tab-count" style="background:rgba(46,125,82,0.12);color:#1a5c38;">—</span></button>
         </div>
+        <div id="admin-griev-card" style="display:none;"></div>
         <div class="admin-search-wrap">
           <input class="search-admin" type="text" id="admin-search" placeholder="🔍 Search title, location, ID…" oninput="adminSearchFilter()" style="min-width:240px;">
           <button class="admin-search-clear" id="admin-search-clear" onclick="adminClearSearch()" title="Clear search">✕</button>
@@ -3802,21 +3847,45 @@ window.adminSearchFilter = () => {
   _adminFilteredIds = q ? new Set() : null;
 
   allRows.forEach(row => {
-    const text = (row.dataset.title||'') + ' ' + (row.dataset.loc||'') + ' ' + (row.dataset.id||'');
+    const text = (row.dataset.title||'') + ' ' + (row.dataset.loc||'') + ' ' + (row.dataset.id||'') + ' ' + (row.dataset.propid||'');
     const match = !q || text.includes(q);
     if(match && q) _adminFilteredIds.add(row.dataset.id);
 
-    // Apply highlight to title cell
-    const titleCell = row.querySelector('td:nth-child(3) strong');
-    if(titleCell && titleCell.dataset.orig === undefined) titleCell.dataset.orig = titleCell.textContent;
-    if(titleCell) titleCell.innerHTML = q ? highlightText(titleCell.dataset.orig, q) : titleCell.dataset.orig;
+    // Helper: cache original text and apply highlight
+    function hlCell(el) {
+      if(!el) return;
+      if(el.dataset.orig === undefined) el.dataset.orig = el.textContent;
+      el.innerHTML = q ? highlightText(el.dataset.orig, q) : el.dataset.orig;
+    }
+
+    // Title (td 3 strong)
+    hlCell(row.querySelector('td:nth-child(3) strong'));
+    // Prop ID (td 1 span)
+    hlCell(row.querySelector('td:nth-child(1) span'));
+    // Location (td 4 — plain text node, wrap in span for caching)
+    const locCell = row.querySelector('td:nth-child(4)');
+    if(locCell) {
+      if(locCell.dataset.orig === undefined) locCell.dataset.orig = locCell.textContent;
+      locCell.innerHTML = q ? highlightText(locCell.dataset.orig, q) : locCell.dataset.orig;
+    }
+    // Price (td 5 strong)
+    hlCell(row.querySelector('td:nth-child(5) strong'));
   });
 
   allCards.forEach(card => {
-    const text = (card.dataset.title||'') + ' ' + (card.dataset.loc||'');
+    const text = (card.dataset.title||'') + ' ' + (card.dataset.loc||'') + ' ' + (card.dataset.propid||'');
+    // Title h4
     const h4 = card.querySelector('h4');
     if(h4 && h4.dataset.orig === undefined) h4.dataset.orig = h4.textContent;
     if(h4) h4.innerHTML = q ? highlightText(h4.dataset.orig, q) : h4.dataset.orig;
+    // Prop ID span (gold #id)
+    const pidSpan = card.querySelector('span[style*="color:var(--gold)"]');
+    if(pidSpan && pidSpan.dataset.orig === undefined) pidSpan.dataset.orig = pidSpan.textContent;
+    if(pidSpan) pidSpan.innerHTML = q ? highlightText(pidSpan.dataset.orig, q) : pidSpan.dataset.orig;
+    // Location + price paragraph
+    const p = card.querySelector('p');
+    if(p && p.dataset.orig === undefined) p.dataset.orig = p.textContent;
+    if(p) p.innerHTML = q ? highlightText(p.dataset.orig, q) : p.dataset.orig;
   });
 
   _adminCurrentPage = 1;
@@ -4248,6 +4317,12 @@ window.toggleFav = async (propId, sliderId) => {
     btn.classList.toggle('liked', isNowLiked);
     btn.textContent = isNowLiked ? '♥' : '♡';
     btn.title = isNowLiked ? 'Remove from wishlist' : 'Add to wishlist';
+  }
+
+  // If wishlist filter is active, re-apply it so removed items disappear
+  if(window._wishlistFilterActive) {
+    const updatedLiked = JSON.parse(localStorage.getItem('kt_liked')||'[]');
+    renderProps(allProperties.filter(p => updatedLiked.includes(p.id)));
   }
 
   // If logged in, store in Firestore too
@@ -4719,7 +4794,7 @@ window.buildSearchDropdowns = (props) => {
   const villagesByDistrict = {};
   const known = KL_DISTRICTS['Kerala']||[];
 
-  props.filter(p=>!p.soldOut && (!p.approval || p.approval==='approved')).forEach(p=>{
+  props.filter(p=>!p.soldOut && p.approval==='approved').forEach(p=>{
     if(!p.location) return;
     const parts = p.location.split(',').map(x=>x.trim()).filter(Boolean);
     let dist='', village='';
@@ -4765,7 +4840,7 @@ window.buildSearchDropdowns = (props) => {
   if(distEl){
     distEl.innerHTML = '<option value="">All Districts</option>' +
       known.map(d=>{
-        const count = props.filter(p=>(!p.approval||p.approval==='approved')&&(p.location||'').includes(d)).length;
+        const count = props.filter(p=>p.approval==='approved'&&(p.location||'').includes(d)).length;
         return `<option value="${d}">${d}${count>0?' ('+count+')':''}</option>`;
       }).join('');
   }
@@ -4785,6 +4860,12 @@ window.onSearchDistrictChange = () => {
 };
 
 window.filterProps = () => {
+  // Reset wishlist filter if active
+  if(window._wishlistFilterActive) {
+    window._wishlistFilterActive = false;
+    const wBtn = document.getElementById('wishlist-filter-btn');
+    if(wBtn) { wBtn.style.background='rgba(255,255,255,0.15)'; wBtn.style.borderColor='rgba(255,255,255,0.45)'; wBtn.style.color='#fff'; wBtn.style.transform=''; wBtn.textContent='♡'; wBtn.title='Show saved properties'; }
+  }
   const dist    = document.getElementById('s-loc-district')?.value||'';
   const village = document.getElementById('s-loc-village')?.value||'';
   const type    = document.getElementById('s-type')?.value||'';
@@ -4834,6 +4915,40 @@ window.filterProps = () => {
     return true;
   }));
   document.getElementById('listings').scrollIntoView({behavior:'smooth'});
+};
+
+// ── WISHLIST FILTER ───────────────────────────────────────────────────────────
+window._wishlistFilterActive = false;
+window.toggleWishlistFilter = () => {
+  window._wishlistFilterActive = !window._wishlistFilterActive;
+  const btn = document.getElementById('wishlist-filter-btn');
+  if(window._wishlistFilterActive) {
+    // Active state — gold filled like the card heart
+    btn.style.background = 'var(--gold)';
+    btn.style.borderColor = 'var(--gold)';
+    btn.style.color = '#c0392b';
+    btn.style.transform = 'scale(1.1)';
+    btn.textContent = '♥';
+    btn.title = 'Showing saved properties — click to clear';
+    const liked = JSON.parse(localStorage.getItem('kt_liked')||'[]');
+    if(!liked.length) {
+      renderProps([]);
+      const grid = document.getElementById('pgrid');
+      if(grid) grid.innerHTML += `<div class="empty" style="grid-column:1/-1"><p>💛 No saved properties yet.<br>Tap ♡ on any listing to save it here.</p></div>`;
+    } else {
+      renderProps(allProperties.filter(p => liked.includes(p.id)));
+    }
+  } else {
+    // Reset to white outline
+    btn.style.background = 'rgba(255,255,255,0.15)';
+    btn.style.borderColor = 'rgba(255,255,255,0.45)';
+    btn.style.color = '#fff';
+    btn.style.transform = '';
+    btn.textContent = '♡';
+    btn.title = 'Show saved properties';
+    renderProps(allProperties);
+  }
+  document.getElementById('listings')?.scrollIntoView({behavior:'smooth'});
 };
 
 // Search tab toggle
@@ -5326,60 +5441,37 @@ window.closeGrievModal = () => {
 
 // ── ADMIN SIDE ────────────────────────────────────────────────────────────
 
-// Admin: load grievance count badge
+// Admin: load grievance count badge (now updates tab instead of card)
 window.loadAdminGrievanceCount = async () => {
-  const card  = document.getElementById('admin-griev-card');
-  const el    = document.getElementById('admin-griev-count');
-  const label = document.getElementById('admin-griev-label');
-  const hint  = document.getElementById('admin-griev-hint');
-  if(!el) return;
+  const tabCount = document.getElementById('admin-griev-tab-count');
+  const tab      = document.getElementById('admin-griev-tab');
+  if(!tabCount) return;
   try {
     const { getDocs: gds, collection: col } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
     const snap = await gds(col(db,'grievances'));
     const all        = snap.docs.map(d=>d.data());
     const openList   = all.filter(g=>g.grievStatus==='open');
-    const closedList = all.filter(g=>g.grievStatus==='closed');
     const openCount  = openList.length;
     const total      = all.length;
-
-    // Unread = open grievances where last reply is from user (awaiting admin response)
     const needsAdminReply = openList.some(g=>{
       const replies = g.replies||[];
-      if(!replies.length) return true; // no reply yet
+      if(!replies.length) return true;
       return replies[replies.length-1].from === 'user';
     });
-
     if(total === 0) {
-      // No grievances — soft blue
-      if(card) { card.style.background='linear-gradient(135deg,#e8f4fd 0%,#ddeeff 100%)'; card.style.borderColor='rgba(52,152,219,0.25)'; card.style.boxShadow='0 4px 14px rgba(52,152,219,0.10)'; }
-      el.style.color='#2980b9'; el.textContent='0';
-      if(label) { label.textContent='💬 Grievances'; label.style.color='#2980b9'; }
-      if(hint)  { hint.textContent='None yet'; hint.style.color='#2980b9'; }
+      tabCount.textContent='0'; tabCount.style.background='rgba(52,152,219,0.12)'; tabCount.style.color='#2980b9';
+      if(tab) { tab.style.color='#2980b9'; tab.title='No grievances yet'; }
     } else if(needsAdminReply && openCount > 0) {
-      // Needs admin attention — warm amber/yellow
-      if(card) { card.style.background='linear-gradient(135deg,#fff8e1 0%,#ffecb3 100%)'; card.style.borderColor='rgba(245,176,65,0.55)'; card.style.boxShadow='0 4px 18px rgba(245,176,65,0.22)'; }
-      el.style.color='#c0780a'; el.textContent=openCount;
-      if(label) { label.textContent='🔔 Needs Reply ('+openCount+')'; label.style.color='#a06010'; }
-      if(hint)  { hint.textContent='Action required →'; hint.style.color='#c0780a'; }
+      tabCount.textContent=openCount; tabCount.style.background='rgba(245,176,65,0.20)'; tabCount.style.color='#c0780a';
+      if(tab) { tab.style.color='#c0780a'; tab.title='Needs admin reply'; }
     } else if(openCount > 0) {
-      // Open but admin already replied — light coral
-      if(card) { card.style.background='linear-gradient(135deg,#fff0f0 0%,#ffe0e0 100%)'; card.style.borderColor='rgba(192,57,43,0.30)'; card.style.boxShadow='0 4px 18px rgba(192,57,43,0.12)'; }
-      el.style.color='#c0392b'; el.textContent=openCount;
-      if(label) { label.textContent='⚠️ Open ('+openCount+')'; label.style.color='#a03020'; }
-      if(hint)  { hint.textContent='Awaiting user reply →'; hint.style.color='#c0392b'; }
+      tabCount.textContent=openCount; tabCount.style.background='rgba(192,57,43,0.12)'; tabCount.style.color='#c0392b';
+      if(tab) { tab.style.color='#c0392b'; tab.title='Open grievances'; }
     } else {
-      // All closed — calming teal/green
-      if(card) { card.style.background='linear-gradient(135deg,#e8f8f2 0%,#d4f0e4 100%)'; card.style.borderColor='rgba(39,174,96,0.30)'; card.style.boxShadow='0 4px 18px rgba(39,174,96,0.12)'; }
-      el.style.color='#1a8a50'; el.textContent=total;
-      if(label) { label.textContent='✅ All Resolved'; label.style.color='#1a6e3c'; }
-      if(hint)  { hint.textContent='View history →'; hint.style.color='#1a8a50'; }
+      tabCount.textContent=total; tabCount.style.background='rgba(39,174,96,0.15)'; tabCount.style.color='#1a6e3c';
+      if(tab) { tab.style.color='#1a6e3c'; tab.title='All resolved'; }
     }
-    // Hover effect
-    if(card) {
-      card.onmouseover = ()=>{ card.style.transform='translateY(-2px)'; card.style.boxShadow=card.style.boxShadow.replace(/[\d.]+\)$/,'0.3)'); };
-      card.onmouseout  = ()=>{ card.style.transform=''; };
-    }
-  } catch(e) { if(el) { el.textContent='—'; el.style.color='var(--warm-gray)'; } }
+  } catch(e) { if(tabCount) { tabCount.textContent='—'; } }
 };
 
 let _grievPage = 1;
@@ -5518,27 +5610,19 @@ window.adminCloseGrievance = async (gid, btn) => {
 // ── ADMIN: REGISTERED USERS ───────────────────────────────────────────────────
 
 window.loadAdminUserCount = async () => {
-  const card = document.getElementById('admin-users-card');
-  const el   = document.getElementById('admin-users-count');
-  if(!el) return;
+  const tabCount = document.getElementById('admin-users-tab-count');
+  if(!tabCount) return;
   try {
     const { getDocs: gds, collection: col } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    // Count users collection + fallback count from properties distinct addedBy uids
     const uSnap = await gds(col(db, 'users'));
     const knownUids = new Set(uSnap.docs.map(d => d.id));
     const pSnap = await gds(col(db, 'properties'));
     pSnap.docs.forEach(d => { const uid = d.data().addedBy; if(uid) knownUids.add(uid); });
     const count = knownUids.size;
-    el.textContent = count;
-    el.style.color = 'var(--accent)';
-    if(card) {
-      card.style.background = 'linear-gradient(135deg,#eaf6f0 0%,#d5ede3 100%)';
-      card.style.borderColor = 'rgba(46,125,82,0.30)';
-      card.style.boxShadow   = '0 4px 18px rgba(46,125,82,0.12)';
-      card.onmouseover = ()=>{ card.style.transform='translateY(-2px)'; };
-      card.onmouseout  = ()=>{ card.style.transform=''; };
-    }
-  } catch(e) { if(el) { el.textContent='—'; el.style.color='var(--warm-gray)'; } }
+    tabCount.textContent = count;
+    tabCount.style.background = 'rgba(46,125,82,0.15)';
+    tabCount.style.color = 'var(--accent)';
+  } catch(e) { if(tabCount) { tabCount.textContent='—'; } }
 };
 
 let _usersPage = 1;
